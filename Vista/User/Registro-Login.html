@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>TruckMAC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../Controlador/CSS/style2.css">
+  <link rel="shortcut icon" href="../../Controlador/IMAGENES/icono11.svg" type="image/x-icon">
+  <script src="https://kit.fontawesome.com/887a83504.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .form-control.ok input {
+      border: 0.1px solid;
+      border-color: #08ffc8;
+    }
+    .form-control.falla input {
+      border: 0.1px solid;
+      border-color: #fe5f55;
+    }
+    .form-control p {
+      visibility: hidden;
+      position: absolute;
+      font-size: small;
+      font-weight: 500;
+      text-align: right;
+    }
+    .form-control.falla p {
+      visibility: visible;
+      color: #e74c3c;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="contenedor__todo">
+      <div class="caja__tracera">
+        <div class="caja__tracera-login">
+          <h3>¿Ya tienes una cuenta?</h3>
+          <p>Inicia sesión para entrar a la página</p>
+          <button id="btn__iniciar-sesion">Iniciar sesión</button>
+        </div>
+
+        <div class="caja__tracera-register">
+          <h3>¿Aún no tienes una cuenta?</h3>
+          <p>Regístrate para iniciar sesión</p>
+          <button id="btn__registrarse">Registrarse</button>
+        </div>
+      </div>
+
+      <div class="contenedor__login-register">
+
+        <!-- LOGIN conectado a Spring Boot -->
+        <form onsubmit="iniciarSesion(event)" class="formulario__login">
+          <h2>Iniciar sesión</h2>
+          <input type="text" placeholder="Usuario" id="usuarioLogin" required>
+          <input type="password" placeholder="Contraseña" id="contrasenaLogin" required>
+          <button type="submit">Entrar</button>
+        </form>
+
+        <!-- REGISTRO conectado a Spring Boot -->
+        <form onsubmit="registrarUsuario(event)" class="formulario__register" id="formulario">
+          <h2>Registrarse</h2>
+          <div class="form-control">
+            <input type="text" placeholder="Nombre completo" id="nombreRegistro" required>
+            <p></p>
+          </div>
+          <div>
+            <input type="email" placeholder="Correo Electrónico" id="correoRegistro" required>
+            <p></p>
+          </div>
+          <div>
+            <input type="text" placeholder="Usuario" id="usuarioRegistro" required>
+            <p></p>
+          </div>
+          <div>
+            <input type="password" placeholder="Contraseña" id="contrasenaRegistro" required>
+            <p></p>
+          </div>
+          <button type="submit">Registrarse</button>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ✅ JS para LOGIN -->
+  <script>
+    function iniciarSesion(event) {
+      event.preventDefault();
+
+      const usuario = document.getElementById('usuarioLogin').value;
+      const contrasena = document.getElementById('contrasenaLogin').value;
+
+      fetch('http://localhost:8080/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, contrasena })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.id_usuario) {
+          // 🟢 Esta línea es la clave para mostrar el nombre en index
+          localStorage.setItem("nombreUsuario", data.nombre_completo);
+
+          alert(`Bienvenido/a, ${data.nombre_completo}`);
+          window.location.href = "../../Vista/Home/index.html"; // Ajusta si tu ruta es otra
+        } else {
+          alert('Usuario o contraseña incorrectos.');
+        }
+      })
+      .catch(error => {
+        console.error('Error en el login:', error);
+        alert('Ocurrió un error al iniciar sesión');
+      });
+    }
+  </script>
+
+  <!-- ✅ JS para REGISTRO -->
+  <script>
+    function registrarUsuario(event) {
+      event.preventDefault();
+
+      const nombre_completo = document.getElementById("nombreRegistro").value;
+      const correo = document.getElementById("correoRegistro").value;
+      const usuario = document.getElementById("usuarioRegistro").value;
+      const contrasena = document.getElementById("contrasenaRegistro").value;
+
+      const nuevoUsuario = {
+        nombre_completo,
+        correo,
+        usuario,
+        contrasena,
+        activo: 1,
+        fecha_registro: new Date().toISOString().slice(0, 19).replace('T', ' ')
+      };
+
+      fetch('http://localhost:8080/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nuevoUsuario)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.id_usuario) {
+          alert("Usuario registrado con éxito. Ahora puedes iniciar sesión.");
+          document.getElementById("formulario").reset();
+        } else {
+          alert("No se pudo registrar. Verifica los datos.");
+        }
+      })
+      .catch(error => {
+        console.error("Error al registrar:", error);
+        alert("Error al conectar con el servidor.");
+      });
+    }
+  </script>
+
+  <!-- Scripts adicionales -->
+  <script src="validation.js"></script>
+  <script src="../../Controlador/JS/registrar.js"></script>
+</body>
+</html>

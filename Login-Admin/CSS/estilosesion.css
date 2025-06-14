@@ -1,0 +1,69 @@
+/*Quitamos margen y relleno del html*/
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration-line: none;
+}
+
+
+
+/*Posicionamos el formulario al medio y le agregamos una sombra*/
+form{
+position: absolute;
+min-width: 280;
+max-width: 25%;
+width: 25%;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+padding: 15px;
+box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
+background-color: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(40px);
+border-radius: 5px;
+color: #fff;
+}
+
+
+h1{
+    position: relative;
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 7px;
+}
+
+
+input{
+display: block;
+width: 100%;
+height: 40px;
+padding: 5px 6px;
+margin-bottom: 15px;
+border: none;
+outline: none;
+border-radius: 15px;
+}
+
+/*Alineamos al centro , agregamos espacio entre este elemento y el siguiente elemento*/
+
+button{
+display: block;
+margin: auto;
+width: 100%;
+height: 40px;
+background-color: #5d5b5b96;
+border: none;
+cursor: pointer;/* cursor del mouse como un puntero cuando se coloca sobre el botón*/
+border-radius: 20px;
+color: #fff;
+
+}
+
+/*Alineamos al centro y se agrega un margen superior*/
+.link{
+text-align: center;
+margin-top: 15px;
+font-weight: bolder;
+
+}

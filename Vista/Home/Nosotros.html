@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../Controlador/IMAGENES/icono11.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../../Controlador/CSS/Nosotros.css">
+    <title>SILHOUETTE GYM</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <script src="../../Controlador/Chatbot/truckbot-widget.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-zWbq3GqEJ13xjtC+Wh9gI7RQD92RkJL7Hw2Mfl6U8D6gIj14TetJv0sLeY9ZojE1C0m4FwO1uW7y8o3jdzVpEw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Insertando Bibliotecas Externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+
+    <!-- Insertando Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-abcdefghijklmnopqrstuvwxyz1234567890" crossorigin="anonymous" />
+    <script src="https://kit.fontawesome.com/5a0dc1b3bf.js" crossorigin="anonymous"></script>
+
+    <!-- Insertando Tipos de Letras -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+
+    <!-- Insertando Script Animaciones -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Insertando tu script personalizado -->
+    <script src="../../Controlador/JS/script.js"></script>
+</head>
+
+<body>
+    <!--codigo oficial-->
+    <header class="cabezera" id="inicio">
+        <div class="menu_arriba">
+            <h1 class="nom_gym">SILHOUETTE <span class="txtRojo">GYM</span></h1>
+            <ul class="imagen1">
+                <img src="../../Controlador/img.menu/icono11.svg">
+            </ul>
+            <nav id="nav">
+                <a href="../../Vista/Home/index.html" onclick="seleccionar()">Inicio</a>
+                <a href="../../Vista/Home/Nosotros.html" onclick="seleccionar()">Nosotros</a>
+                <a href="../../Vista/Home/Planes.php" onclick="seleccionar()">Planes</a>
+                <a href="../../Vista/Home/Tienda.php" onclick="seleccionar()">Tienda</a>
+              
+            </nav>
+            <div class="redes">
+                <a href=""><i
+                        class="fa-brands fa-facebook-f"></i></a>
+                <a href=""><i class="fa-brands fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+                <a href=""><i class="fab fa-whatsapp"></i></a>
+                <a href=""><i
+                        class="fa-brands fa-tiktok"></i></a>
+            </div>
+
+
+            <a class="nav-link itemText" id="sesionLink" href="">
+                <i class="fas" id="sesionIcon"></i>
+            </a>
+
+            <a class="usuario"><span id="nombre-usuario"></span></a>
+        
+             <!-- Icono del menu responsive -->
+             <div class="nav-responsive" id="icono-nav" onclick="mostrarOcultarMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+        </div>
+    <img src="../../Controlador/img/bx-menu-alt-right.svg" alt="" class="menu">
+    <nav class="menu-navegacion">
+        <a href="#inicio" onclick="seleccionar()">Inicio</a>
+        <a href="#Historia" onclick="seleccionar()">Nosotros</a>
+        <a href="#Principios" onclick="seleccionar()">Objetivos</a>
+        <a href="#Servicio" onclick="seleccionar()">Servicio al Cliente</a>
+        <a href="#Preguntas" onclick="seleccionar()">Preguntas Frecuentes</a>
+        <a href="#contacto" onclick="seleccionar()">Contacto</a>
+    </nav>
+    <div class="contenedor head">
+        <h1 class="titulo">Conoce nuestra historia que nos motivo a ponerla en marcha.</h1>
+        <p class="copy"></p>
+    </div>
+    </header>
+
+    <main>
+        <section class="service contenedor" id="Historia">
+            <h2 class="subtitulo">Nosotros</h2>
+            <div class="contenedor-servicio">
+                <img src="../../Controlador/img/nosotros_2.jpg" alt="" srcset="">
+                <div class="checklist-servicio">
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">1</span> Nuestra Historia</h3>
+                        <p> Hace varios años, vimos la necesidad urgente de modernizar la venta de repuestos en el país. En una industria donde aún predominaban los procesos manuales, decidimos crear TruckMac: una plataforma capaz de ofrecer repuestos de calidad, respaldo técnico y atención virtual en un solo lugar.</p>
+                    </div>
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">2</span>Nuestra Decisión</h3>
+                        <p> Creamos TruckMac con el objetivo de brindar una experiencia de compra rápida, confiable y accesible. Nos propusimos automatizar el proceso sin perder la cercanía, incluyendo un asistente virtual que resuelve dudas en tiempo real, y un catálogo que se adapta a lo que realmente buscan nuestros clientes.</p>
+                    </div>
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">3</span>Nuestra Recomendacíón</h3>
+                        <p>Tanto si eres un cliente particular como una empresa de transporte, en TruckMac estás respaldado. Nuestra meta es que encuentres lo que necesitas, cuando lo necesitas, con la seguridad de que estás comprando productos garantizados y asesoría personalizada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="gallery" id="Principios">
+            <div class="contenedor">
+                <h2 class="subtitulo">Nuestros Principios y Objetivos</h2>
+                <div class="contenedor-galeria">
+                    <img src="../../Controlador/img/nosotros_3.png" alt="" class="img-galeria">
+                    <img src="../../Controlador/img/nosotros_4.jpg" alt="" class="img-galeria">
+                    <img src="../../Controlador/img/nosotros_5.png" alt="" class="img-galeria">
+                </div>
+            </div>
+        </section>
+        </section>
+        <section class="imagen-light">
+            <img src="../../Controlador/img/bx-x.svg" alt="" class="close">
+            <img src="../../Controlador/img/Presentación diapositivas Marca personal Doodle Scribble Blanco, negro y marrón.jpg" alt=""
+                class="agregar-imagen">
+        </section>
+        <section class="service contenedor" id="Servicio">
+            <h2 class="subtitulo">Servicio al Cliente</h2>
+            <div class="contenedor-servicio">
+                <img src="../../Controlador/img/servicio_cliente.jpg" alt="" srcset="">
+                <div class="checklist-servicio">
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">1</span> Horario de Atención</h3>
+                        <p>Lunes a Domingo de 8:00 a.m. a 08:00 p.m.</p>
+                    </div>
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">2</span>Teléfono</h3>
+                        <p> Para llamar al teléfono de atención a clientes de Silhouette Gym, usted debe marcar el siguiente
+                            número:
+                            513-3355. Esta línea atiende consultas y reclamos en el siguiente horario de atención:
+                            Lunes a Viernes de 09:00 a 21:00 horas.</p>
+                    </div>
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">3</span>Libro de Reclamaciones</h3>
+                        <p>Si requiere el libro de reclamaciones, basta con solicitarlo en nuestra plataforma. Si ha
+                            realizado
+                            una compra online, puede usar el libro de reclamaciones virtual:</p>
+                        <a class="btn-reclamo" target="_blank" href="#">Ver Libro de Reclamaciones</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="preguntas" id="Preguntas">
+            <h1 class="subtitulo">Preguntas Frecuentes</h1>
+            <div class="categorias" id="categorias">
+                <div class="categoria activa" data-categoria="metodos-pago">
+                    <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                            d="M21.19 7h2.81v15h-21v-5h-2.81v-15h21v5zm1.81 1h-19v13h19v-13zm-9.5 1c3.036 0 5.5 2.464 5.5 5.5s-2.464 5.5-5.5 5.5-5.5-2.464-5.5-5.5 2.464-5.5 5.5-5.5zm0 1c2.484 0 4.5 2.016 4.5 4.5s-2.016 4.5-4.5 4.5-4.5-2.016-4.5-4.5 2.016-4.5 4.5-4.5zm.5 8h-1v-.804c-.767-.16-1.478-.689-1.478-1.704h1.022c0 .591.326.886.978.886.817 0 1.327-.915-.167-1.439-.768-.27-1.68-.676-1.68-1.693 0-.796.573-1.297 1.325-1.448v-.798h1v.806c.704.161 1.313.673 1.313 1.598h-1.018c0-.788-.727-.776-.815-.776-.55 0-.787.291-.787.622 0 .247.134.497.957.768 1.056.344 1.663.845 1.663 1.746 0 .651-.376 1.288-1.313 1.448v.788zm6.19-11v-4h-19v13h1.81v-9h17.19z" />
+                    </svg>
+                    <p>Métodos de pago</p>
+                </div>
+                <div class="categoria" data-categoria="seguridad">
+                    <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                            d="M12 0c-3.371 2.866-5.484 3-9 3v11.535c0 4.603 3.203 5.804 9 9.465 5.797-3.661 9-4.862 9-9.465v-11.535c-3.516 0-5.629-.134-9-3zm0 1.292c2.942 2.31 5.12 2.655 8 2.701v10.542c0 3.891-2.638 4.943-8 8.284-5.375-3.35-8-4.414-8-8.284v-10.542c2.88-.046 5.058-.391 8-2.701zm5 7.739l-5.992 6.623-3.672-3.931.701-.683 3.008 3.184 5.227-5.878.728.685z" />
+                    </svg>
+                    <p>Seguridad</p>
+                </div>
+                <div class="categoria" data-categoria="cuenta">
+                    <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                            d="M9.484 15.696l-.711-.696-2.552 2.607-1.539-1.452-.698.709 2.25 2.136 3.25-3.304zm0-5l-.711-.696-2.552 2.607-1.539-1.452-.698.709 2.25 2.136 3.25-3.304zm0-5l-.711-.696-2.552 2.607-1.539-1.452-.698.709 2.25 2.136 3.25-3.304zm10.516 11.304h-8v1h8v-1zm0-5h-8v1h8v-1zm0-5h-8v1h8v-1zm4-5h-24v20h24v-20zm-1 19h-22v-18h22v18z" />
+                    </svg>
+                    <p>Cuenta</p>
+                </div>
+            </div>
+
+            <div class="preguntas">
+
+                <!-- Preguntas Metodos de pago -->
+                <div class="contenedor-preguntas activo" data-categoria="metodos-pago">
+                    <div class="contenedor-pregunta">
+                    <p class="pregunta">¿Qué métodos de pago disponibles tienen? 
+                        <img src="../../Controlador/img/bx-plus.svg" alt="Abrir Respuesta" />
+                    </p>
+                    <p class="respuesta">
+                        El pago de tu pedido en TruckMac puede realizarse de forma segura a través de los siguientes métodos:<br><br>
+                        <strong>- Tarjeta de débito o crédito (Visa, Mastercard)</strong><br>
+                        <strong>- Transferencias bancarias directas</strong><br>
+                        <strong>- Pagos digitales como Yape y Plin</strong><br><br>
+                        Por el momento <strong>no aceptamos pagos en efectivo ni tarjetas extranjeras</strong>.<br>
+                        Te recomendamos verificar que tu tarjeta esté activa y habilitada para compras online. 
+                        En caso de pago con cuenta de terceros, asegúrate de registrar correctamente los datos para evitar retrasos en el procesamiento de tu pedido.
+                    </p>
+                </div>
+
+                    <div class="contenedor-pregunta">
+                        <p class="pregunta">¿Que sucede con los pagos no realizados a tiempo? <img
+                                src="../../Controlador/img/bx-plus.svg" alt="Abrir Respuesta" /></p>
+                        <p class="respuesta">Si un pago no se procesa correctamente en el primer intento, el sistema realizará un segundo intento automático 
+                            pasados unos días. Por eso, es importante que tu tarjeta esté habilitada y cuente con fondos suficientes.<br><br>
+                            En caso de persistir el fallo, recibirás una notificación automática con instrucciones para realizar el pago 
+                            manual mediante <strong>Yape, Plin o transferencia bancaria</strong>.<br><br>
+                            Si acumulas más de dos pedidos impagos, <strong>TruckMac se reserva el derecho de suspender temporalmente tu acceso a nuevos pedidos</strong> 
+                            hasta regularizar tu deuda.<br><br>
+                            Para cualquier duda adicional puedes comunicarte con nuestro equipo de atención o revisar el estado de tus pagos desde tu cuenta.</p>
+                    </div>
+                </div>
+                <!-- Preguntas Seguridad -->
+                <div class="contenedor-preguntas" data-categoria="seguridad">
+                    <div class="contenedor-pregunta">
+                        <p class="pregunta">¿Como puedo saber si son confiables? <img src="../../Controlador/img/bx-plus.svg"
+                                alt="Abrir Respuesta" /></p>
+                        <p class="respuesta">En TruckMac nos respaldan años de experiencia en el sector automotriz y una amplia cartera de clientes satisfechos. 
+                            Todos nuestros repuestos son verificados y certificados por proveedores oficiales. <br><br>
+                            Además, contamos con sistemas de seguridad para tus pagos y asistencia técnica en todo momento. Puedes revisar reseñas 
+                            de otros compradores, así como contactarnos directamente si tienes dudas antes de realizar una compra.</p>
+                    </div>
+                    <div class="contenedor-pregunta">
+                        <p class="pregunta">¿Que pasa con mis datos personales? <img src="../../Controlador/img/bx-plus.svg"
+                                alt="Abrir Respuesta" /></p>
+                        <p class="respuesta">
+                            En TruckMac nos tomamos muy en serio la privacidad de nuestros clientes. Tus datos están protegidos bajo estrictas 
+                            políticas de confidencialidad y almacenamiento seguro, cumpliendo con la legislación vigente en protección de datos.<br><br>
+                            La información proporcionada solo se usa para procesar pedidos, brindar soporte y mejorar tu experiencia. 
+                            <strong>No compartimos datos con terceros</strong> sin tu consentimiento explícito. Puedes solicitar la eliminación de tu información 
+                            cuando lo desees, a través de tu cuenta o nuestro canal de atención.</p>
+                    </div>
+                </div>
+
+                <!-- Preguntas Cuenta -->
+                <div class="contenedor-preguntas" data-categoria="cuenta">
+                    <div class="contenedor-pregunta">
+                        <p class="pregunta">¿Cuales son los beneficios al inscribirme? <img src="../../Controlador/img/bx-plus.svg"
+                                alt="Abrir Respuesta" /></p>
+                        <p class="respuesta">Al registrarte en TruckMac podrás acceder a beneficios exclusivos como:<br><br>
+                            <strong>- Historial de pedidos y seguimiento en tiempo real</strong><br>
+                            <strong>- Recomendaciones personalizadas de repuestos según tu vehículo</strong><br>
+                            <strong>- Acceso directo a promociones y descuentos exclusivos</strong><br>
+                            <strong>- Atención preferente vía nuestro asistente virtual</strong><br><br>
+                            Todo esto pensado para hacer tu experiencia de compra más rápida, segura y eficiente.</p>
+                    </div>
+                    <div class="contenedor-pregunta">
+                        <p class="pregunta">¿Como puedo crearme una cuenta? <img src="../../Controlador/img/bx-plus.svg"
+                                alt="Abrir Respuesta" /></p>
+                        <p class="respuesta"> Crear tu cuenta en TruckMac es muy sencillo. Solo debes dirigirte a la página principal y hacer clic en el ícono de usuario ubicado 
+                            en la parte superior derecha. Allí podrás registrarte ingresando tu nombre, apellidos y correo electrónico.<br><br>
+                            Una vez registrado, podrás realizar pedidos, recibir notificaciones sobre el estado de tus compras y acceder a todos los beneficios de nuestra plataforma.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="contact-us">
+                <h2 class="brand"> SILHOUETTE GYM</h2>
+                <p>Somos Expertos en el tipo de vida que necesites</p>
+            </div>
+            <div class="social-media">
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-facebook'><a
+                            href="https://www.facebook.com/profile.php?id=100091614803805"></a></i>
+                </a>
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-twitter'><a href="#"></a></i>
+                </a>
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-instagram'><a href="https://www.instagram.com/silhouette_gym01"></a></i>
+                </a>
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-whatsapp'><a href="https://wa.me/51981486877"></a></i>
+                </a>
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-tiktok'><a
+                            href="https://www.tiktok.com/@silhouette_gym01?is_from_webapp=1&amp;sender_device=pc"></a></i>
+                </a>
+            </div>
+        </div>
+        <div class="line"></div>
+    </footer>
+
+    <script src="../../Controlador/JS/app.js"></script>
+
+    <script>
+    // Mostrar nombre del usuario almacenado
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+    const nombreSpan = document.getElementById("nombre-usuario");
+
+    if (nombreUsuario && nombreSpan) {
+        nombreSpan.textContent = "Usuario: " + nombreUsuario;
+    }
+
+    // Lógica para cerrar sesión
+    const cerrarSesion = document.getElementById("sesionLink");
+    cerrarSesion.addEventListener("click", function (e) {
+        e.preventDefault();
+        localStorage.removeItem("nombreUsuario");
+        alert("Sesión cerrada correctamente");
+        window.location.href = "../../Vista/User/Registro-Login.html";
+    });
+    </script>
+
+    <script src="../../Controlador/JS/categorias.js"></script>
+    <script src="../../Controlador/JS/preguntasFrecuentes.js"></script>
+    <script src="../../Controlador/JS/menu.js"></script>
+    <script src="../../Controlador/JS/lightbox.js"></script>
+    <script src="../../Controlador/JS/app.js"></script>
+</body>
+
+</html>

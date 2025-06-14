@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SILHOUETTE GYM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Estilos y fuentes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://kit.fontawesome.com/5a0dc1b3bf.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../../Controlador/CSS/estilo.css">
+  <link rel="shortcut icon" href="../../Controlador/IMAGENES/icono11.svg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="../../Controlador/JS/script.js"></script>
+  <script src="../../Controlador/Chatbot/truckbot-widget.js"></script>
+</head>
+
+<body>
+  <div class="menu_arriba">
+    <header>
+      <h1 class="nom_gym">SILHOUETTE <span class="txtRojo">GYM</span></h1>
+      <ul class="imagen1">
+        <img src="../../Controlador/img.menu/icono11.svg">
+      </ul>
+      <nav id="nav">
+        <a href="#inicio" onclick="seleccionar()">Inicio</a>
+        <a href="#nosotros" onclick="seleccionar()">Nosotros</a>
+        <a href="#Planes" onclick="seleccionar()">Planes</a>
+        <a href="#Tienda" onclick="seleccionar()">Tienda</a>
+        <a href="#FOTOS" onclick="seleccionar()">Fotos</a>
+        <a href="#contacto" onclick="seleccionar()">Contacto</a>
+      </nav>
+
+      <!-- Redes -->
+      <div class="redes">
+        <a href=""><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href=""><i class="fab fa-instagram"></i></a>
+        <a href=""><i class="fab fa-whatsapp"></i></a>
+        <a href=""><i class="fab fa-tiktok"></i></a>
+      </div>
+
+      <!-- Botón cerrar sesión -->
+      <a class="nav-link itemText" id="sesionLin" href="#">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+
+      <!-- Nombre del usuario -->
+      <a class="usuario"><span id="nombre-usuario"></span></a>
+
+      <div class="nav-responsive" id="icono-nav" onclick="mostrarOcultarMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </header>
+  </div>
+
+  <!-- INICIO -->
+  <section id="inicio" class="inicio">
+    <video class="video" src="../../Controlador/img.menu/principal.mp4" autoplay muted loop></video>
+    <div class="contenido-video">
+    <h2>¡Mejora tu cuerpo, <span class="txtRojo">mejora tu estilo de vida!</span></h2>
+                <p>"El éxito es la suma de pequeños esfuerzos repetidos día tras día."</p> 
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="nosotros">
+    <div class="fila">
+      <div class="col">
+        <img src="../../Controlador/img.menu/NOSOTROS2.jpg" alt="">
+      </div>
+      <div class="col">
+        <div class="contenedor-titulo">
+          <div class="numero">01</div>
+          <div class="info">
+            <span class="frase">Conócenos un poco más</span>
+            <h2>NOSOTROS</h2>
+          </div>
+        </div>
+        <p>Todo lo que necesitas saber sobre quiénes somos y por qué puedes confiar en nosotros.</p>
+      </div>
+    </div>
+    <hr>
+    <div class="fila-nosotros">
+      <div class="col1"><span class="frase"><span class="txtRojo">POTENCIA</span> TU VIDA</span></div>
+      <div class="col2"><a href="../../Vista/Home/Nosotros.html"><button>Leer más</button></a></div>
+    </div>
+  </section>
+
+  <!-- PLANES -->
+  <section class="Planes" id="Planes">
+    <div class="contenido">
+      <div class="fila">
+        <div class="col">
+          <div class="contenedor-titulo">
+            <div class="numero">02</div>
+            <div class="info">
+              <span class="frase">DESCUBRE NUESTROS PLANES</span>
+              <h2>CATÁLOGOS DE PLANES</h2>
+            </div>
+          </div>
+          <p class="info">En este gym encontraran los planes al alcance de tu cartera</p>
+                    <p>EN TODOS NUESTROS PLANES ENCONTRARAS LA MEJOR CALIDAD.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-planes">
+      <table>
+        <tr>
+          <td><i class="fa-solid fa-gear"></i><h3><span class="txtRojo">CATÁLOGO </span> COMÚNN</h3></td>
+          <td><i class="fa-solid fa-gear"></i><h3><span class="txtRojo">CATÁLOGO </span> VIP</h3></td>
+          <td><i class="fa-solid fa-gear"></i><h3><span class="txtRojo">CATÁLOGO </span> PREMIUM</h3></td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <div class="fila-planes">
+      <div class="col1"><span class="frase"><span class="txtRojo">POTENCIA</span> TU VIDA</span></div>
+      <div class="col2"><a href="../../Vista/Home/Planes.php"><button>Leer más</button></a></div>
+    </div>
+  </section>
+
+  <!-- TIENDA -->
+  <section class="Tienda" id="Tienda">
+    <div class="contenido">
+      <div class="fila">
+        <div class="col">
+          <div class="contenedor-titulo">
+            <div class="numero">03</div>
+            <div class="info">
+              <span class="frase">MIRA NUESTRA GRAN VARIEDAD DE PRODUCTOSS</span>
+              <h2>TIENDA</h2>
+            </div>
+          </div>
+          <p class="info">Tenemos variedad de productos para que te ayuden en cumplir tu meta</p>
+         <p>TODOS NUESTROS PRODUCTOS SON DE LA MEJOR CALIDAD</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-productos">
+      <table>
+        <tr>
+          <td>
+                        <h3><span class="txtRojo">SUPLEMENTOS</h3>
+
+                    </td>
+                    <td>
+                        <h3><span class="txtRojo">ROPA DEPORTIVA</h3>
+
+                    </td>
+                    <td>
+                        <h3><span class="txtRojo">ARTICULOS DEPORTIVOS</h3>
+
+                    </td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <div class="fila-productos">
+      <div class="col1"><span class="frase"><span class="txtRojo">POTENCIA</span> TU CAMINO</span></div>
+      <div class="col2"><a href="../../Vista/Home/Tienda.html"><button>Leer más</button></a></div>
+    </div>
+  </section>
+
+  <!-- FOTOS -->
+  <section class="FOTOS" id="FOTOS">
+    <div class="contenido-seccion">
+      <div class="contenedor-titulo">
+        <div class="numero">04</div>
+        <div class="info">
+          <span class="frase">PRODUCTOS DESTACADOS</span>
+          <h2>GALERÍA</h2>
+        </div>
+      </div>
+      <div class="fila">
+                <div class="col">
+                    <img src="../../Controlador/img.menu/FOTO1.jpg" alt="">
+                </div>
+                <div class="col">
+                    <img src="../../Controlador/img.menu/FOTO2.jpg" alt="">
+                </div>
+                <div class="col">
+                    <img src="../../Controlador/img.menu/FOTO3.jpg" alt="">
+                </div>
+            </div>
+            <div class="fila">
+
+                <div class="col">
+                    <img src="../../Controlador/img.menu/Entrenador.jpg" alt="">
+                </div>
+                <div class="col">
+                    <img src="../../Controlador/img.menu/FOTO5.jpg" alt="">
+                </div>
+                <div class="col">
+                    <img src="../../Controlador/img.menu/FOTO6.jpg" alt="">
+                </div>
+            </div>
+      
+    </div>
+  </br></br></br></br>
+    </section><br></br><br></br><br></br><br></br><br>
+
+  <!-- CONTACTO -->
+  <section class="contacto" id="contacto">
+    <div class="contenido-seccion">
+      <div class="contenedor-titulo">
+        <div class="numero">05</div>
+        <div class="info">
+          <span class="frase">LA MEJOR EXPERIENCIA</span>
+          <h2>CONTACTO</h2>
+        </div>
+      </div>
+
+      <form action="https://formsubmit.co/u21231783@utp.edu.pe" method="POST">
+        <div class="input-group">
+          <input type="text" name="name" placeholder="Nombre" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <textarea name="message" cols="30" rows="5" placeholder="Mensaje" required></textarea>
+          <input class="btn" type="submit" value="Enviar">
+          <input type="hidden" name="_next" value="http://localhost/TuRuta/Vista/Home/index.html">
+          <input type="hidden" name="_captcha" value="false">
+        </div>
+      </form>
+
+      <div class="fila-datos">
+        <div class="col"><i class="fa-solid fa-location-dot"></i> Avenida Morro 255</div>
+        <div class="col"><i class="fa-solid fa-phone"></i> 2664 - 456788</div>
+        <div class="col"><i class="fa-regular fa-clock"></i> Lunes a Sábado, 8:00h - 24:00h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mostrar nombre de usuario y cerrar sesión -->
+  <script>
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+    const nombreSpan = document.getElementById("nombre-usuario");
+
+    if (nombreUsuario && nombreSpan) {
+      nombreSpan.textContent = "Usuario: " + nombreUsuario;
+    } else {
+    nombreSpan.textContent = "Usuario: Invitado";
+    }
+
+    const cerrarSesion = document.getElementById("sesionLin");
+    cerrarSesion.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("nombreUsuario");
+      alert("Sesión cerrada correctamente");
+      window.location.href = "../../Vista/User/Registro-Login.html";
+    });
+  </script>
+</body>
+</html>

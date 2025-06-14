@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;400;600;800;900&display=swap');
+
+* {
+  margin: 0;
+  /* No hay espacio en blanco alrededor de los objetos */
+  padding: 0;
+  /*quita el rellenos entre los elementos*/
+  box-sizing: border-box;
+  /*Evita que el relleno y el margen se desborden*/
+  font-family: 'Barlow';
+  /*Fuente de letra*/
+}
+
+html {
+  scroll-behavior: smooth;
+  /*da suabidad al movimiento*/
+}
+
+:root {
+  --primario: #8C1717;
+  --gris-claro: #B8B8B8;
+  --sombra: 0 0 13px 0 rgba(185, 185, 185, .25);
+}
+
+body {
+  background-color: #dde1e9;
+  /*fondo de la pagina*/
+}
+
+/*MENU*/
+.menu_arriba{
+  width: 100%;  /*ancho*/
+  position: fixed; /*posicion fija*/
+  border-bottom: 1px solid #1f283e; /*borde inferior de 1px de color plomo*/
+  background-color: rgba(0,0,0,.7);  /*fondo de color plomo transparente*/
+  z-index: 99; /*para que este por arriba de los objetos*/
+  padding: 0 40px; /*relleno de 0 en la parte superior y 40 a los lados*/
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 300px;
+  color: #fff;
+  
+}
+.menu_arriba nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.menu_arriba nav a:hover{
+  color: #ff1133;
+}
+
+.txtRojo{
+  color:#ff1133;
+}
+
+.menu_arriba header{
+  max-width: 1100px;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  color: #fff;
+}
+
+.nom_gym{
+  margin-left: 3rem;
+}
+
+.menu_arriba .redes a {
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 8px;
+}
+
+.menu_arriba .redes a:hover {
+  color: #ff1133;
+}
+
+.nom_gym{
+  margin-left: 3rem;
+}
+
+.nav-responsive {
+  display: none;
+}
+
+.usuario {
+  text-Align: right;
+  margin-right: 0%;
+  position: absolute;
+  right: 3.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 8px;
+}
+
+.usuario:hover {
+  color: #ff1133;
+}
+
+
+.fas {
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 8px;
+  font-size: 20px;
+}
+
+.fas:hover {
+  color: #ff1133;
+}
+
+.imagen1{
+  margin: 0 auto;
+  /*margen automatico*/
+  width: 30px;
+  /*ancho*/
+  height: 30px;
+  /*altura*/
+  display: flex;
+  /*aliniarlo horizontalmente al centro*/
+  margin-left: -18rem;
+  /*posicion del margen izquierdo*/
+  
+}
+
+.contenedor {
+  width: 90%;
+  max-width: 1200px;
+  overflow: hidden;
+  margin: auto;
+  padding: 60px 0;
+}
+
+header {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 1, 3, 0.5), rgba(0, 0, 0, .7)), url(../img/entrenador-fondo.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.head {
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+}
+
+
+.spread {
+  transform: translate(0);
+}
+
+
+.titulo {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+.copy {
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.subtitulo {
+  text-align: center;
+  font-weight: 300;
+  color: #8C1717;
+  margin-bottom: 40px;
+  font-size: 40px;
+}
+
+/* Estilos-diseños para el contenedor de info de entrenadores */
+
+.contenedor-servicio {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.contenedor-servicio img {
+  width: 40%;
+  border: 5px solid #8C1717;
+
+}
+
+.checklist-servicio {
+  width: 45%;
+}
+
+.service {
+  margin-bottom: 20px;
+
+}
+
+.n-service {
+  margin-bottom: 7px;
+  color: #8C1717;
+}
+
+.number {
+  display: inline-block;
+  background-image: linear-gradient(to top, #8C1717 0%, #c44a4a 100%);
+  width: 30px;
+  height: 30px;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: 700;
+  line-height: 30px;
+  margin-right: 5px;
+}
+
+/* Estilos para los entrenadores */
+.trainer {
+  display: inline-block;
+  width: 300px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #d3bcbc;
+  transition: transform 0.3s ease;
+}
+
+.trainer:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.trainer img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.trainer-details {
+  display: none;
+  text-align: center;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background:rgba(156, 60, 60, 0.781) ;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transition: .5s ease;
+}
+
+.trainer-details h3 {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #000000;
+}
+
+.trainer-details p {
+  margin-top: 10px;
+  color: #fff;
+  font-weight: 400;
+  font-size:20px;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.trainer:hover .trainer-details {
+  display: block;
+  height:100%;
+  cursor: pointer;
+}
+
+/* Estilos para el contenedor de los entrenadores */
+#trainers-container {
+  text-align: center;
+}
+
+.descripcion {
+  text-align: justify;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@media (max-width: 900px) {
+  header nav {
+    position: initial;
+    display: none;
+    transform: translate(0);
+  }
+  
+  header .redes {
+    display: none;
+  }
+  
+  .nav-responsive {
+    display: block;
+    margin-right: -280%;
+  }
+  
+  nav.responsive {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #4a1010;
+    z-index: 99;
+  }
+  
+  nav.responsive a {
+    display: block;
+    width: fit-content;
+    margin: 10px auto;
+    font-size: 30px;
+  }
+  
+  .nom_gym{
+    margin-left: -230%;
+  }
+
+   .usuario {
+        right: 13%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .fas {
+      right: 8%;
+  }
+}
+

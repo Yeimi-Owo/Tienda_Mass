@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;400;600;800;900&display=swap');
+
+/*PARA TODO EL DOCUMENTO*/
+*{
+  margin: 0;
+  /* No hay espacio en blanco alrededor de los objetos */
+  padding: 0;
+  /*quita el rellenos entre los elementos*/
+  box-sizing: border-box;
+  /*Evita que el relleno y el margen se desborden*/
+  font-family: 'Barlow';
+  /*Fuente de letra*/
+}
+html {
+  scroll-behavior: smooth;
+  /*da suabidad al movimiento*/
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #353535;
+}
+
+body::after {
+content: "";
+background-size: 15%;
+opacity: 0.2;
+position: fixed;
+top: 0;
+left: -1.5%;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: -1;
+}
+
+
+/*MENU*/
+.menu_arriba{
+  width: 100%;  /*ancho*/
+  position: fixed; /*posicion fija*/
+  border-bottom: 1px solid #1f283e; /*borde inferior de 1px de color plomo*/
+  background-color: rgba(0,0,0,.7);  /*fondo de color plomo transparente*/
+  z-index: 99; /*para que este por arriba de los objetos*/
+  padding: 0 20px; /*relleno de 0 en la parte superior y 20 a los lados*/
+}
+
+.imagen1{
+  margin: 0 auto;
+  /*margen automatico*/
+  width: 30px;
+  /*ancho*/
+  height: 30px;
+  /*altura*/
+  display: flex;
+  margin-left: -20rem;
+  /*posicion del margen izquierdo*/
+}
+
+.nom_gym{
+  margin-right: 5rem;
+  font-weight: bold;
+  color: #fff;
+  color: #fff;
+  font-size: 32px;
+}
+
+
+.menu_arriba header{
+  max-width: 1100px;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  color: #fff;
+}
+
+.txtRojo{
+  color:#ff1133;
+  font-weight: bold;
+}
+
+/*footer*/
+
+footer {
+    background-image: url(../img/footer.jpg);
+    padding-bottom: 0.1px;
+    border: 1px solid black;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.contact-us {
+    width: 40%;
+    color: white;
+    text-align: center;
+}
+
+.brand {
+    font-weight: 500;
+    font-size: 40px;
+}
+
+.brand+p {
+    font-weight: 500;
+}
+
+.social-media {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.social-media-icon {
+    display: inline-block;
+    margin-left: 20px;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+
+}
+
+.social-media-icon:hover {
+    background: white;
+    color: #8C1717;
+}
+
+.social-media-icon i {
+    font-size: 30px;
+    line-height: 60px;
+}
+
+.line {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 2px;
+    background: white;
+    margin-bottom: 60px;
+}
+
+
+.menu_arriba header nav a{
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.menu_arriba header nav a:hover{
+  color: #ff1133;
+}
+
+.menu_arriba header .redes a{
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 8px;
+}
+
+.menu_arriba header .redes a:hover{
+  color: #ff1133;
+}
+
+.nav-responsive {
+  display: none;
+
+}
+.usuario {
+  text-Align: right;
+  margin-right: 0%;
+  position: absolute;
+  right: 3.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 8px;
+}
+
+.usuario:hover {
+  color: #ff1133;
+}
+
+.fas {
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 8px;
+  font-size: 20px;
+}
+
+.fas:hover {
+  color: #ff1133;
+}
+
+/* estilos.css */
+.red-arrow {
+  cursor: pointer;
+  color: #8C1717;
+  font-size: 24px;
+  line-height: 1;
+  top: 12%;
+  left: 3%;
+}
+
+
+
+/*TITULO*/
+
+.seccion_titulo{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.texto_titulo{
+    display: grid;
+    gap: 1.5rem;
+    text-align: center;
+    padding-bottom: 70px;
+}
+.titulo{
+    font-size: 6rem;
+    margin-top: 7rem;
+    color: #ff1133;
+    font-weight: bold;
+}
+.eslogan{
+    font-size: 2rem;
+    line-height: 1.5;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+@media only screen and (max-width: 900px) {
+  header nav {
+      position: initial;
+      display: none;
+      transform: translate(0);
+  }
+
+  header .redes {
+      display: none;
+  }
+
+  .nav-responsive {
+      display: block;
+  }
+
+  nav.responsive {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position:absolute;
+      right: -1%;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      background-color:#4a1010;
+      z-index: 99;
+  }
+
+  nav.responsive a {
+      display: block;
+      width: fit-content;
+      margin: 10px auto;
+      font-size: 30px;
+  }
+
+  .fas {
+      right: 20%;
+  }
+
+  .usuario {
+      right: 25%;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  .imagen1{
+    margin: 0 auto;
+    /*margen automatico*/
+    width: 30px;
+    /*ancho*/
+    height: 30px;
+    /*altura*/
+    display: flex;
+    margin-left: -20rem;
+    /*posicion del margen izquierdo*/
+  }
+  
+  .nom_gym{
+    margin-left: 2rem;
+    font-weight: bold;
+    color: #fff;
+    color: #fff;
+    font-size: 32px;
+  }
+}
+
+
+
+
+
+
+

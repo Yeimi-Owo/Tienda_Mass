@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SILHOUETTE GYM</title>
+
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <link rel="shortcut icon" href="../../Controlador/IMAGENES/icono11.svg" type="image/x-icon" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../../Controlador/CSS/tienda.css" />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="../../Controlador/JS/tiendacarrito.js" defer></script>
+  <script src="../../Controlador/JS/tienda.js" defer></script>
+  <script src="../../Controlador/JS/app.js" defer></script>
+  <script src="../../Controlador/Chatbot/truckbot-widget.js" defer></script>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="contenedor-header">
+    <header>
+      <h1>SILHOUETTE <span class="txtRojo">GYM</span></h1>
+      <ul class="imagen1"><img src="../../Controlador/img.menu/icono11.svg" /></ul>
+      <nav id="nav">
+        <a href="./index.html">Inicio</a>
+        <a href="./nosotros.html">Nosotros</a>
+        <a href="./planes.html">Planes</a>
+        <a href="./tienda.html">Tienda</a>
+      </nav>
+      <div class="redes">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+      <i class="fas fa-sign-out-alt" id="cerrarSesionIcon" style="cursor:pointer; color:red;"></i>
+      <a class="usuario"><span id="nombre-usuario"></span></a>
+    </header>
+  </div>
+
+  <!-- TIENDA -->
+  <div class="contenedor-todo">
+    <h1 class="titulo">SILHOUETTE GYM<span class="txtRojo">TIENDA</span></h1>
+    <section class="contenedor">
+      <div class="contenedor-items" id="contenedor-productos"></div>
+      <div class="carrito" id="carrito">
+        <div class="header-carrito"><h2>Tu Carrito</h2></div>
+        <div class="carrito-items" id="carrito-items"></div>
+        <div class="carrito-total">
+          <div class="fila">
+            <strong>Tu Total</strong>
+            <span id="carrito-precio-total">S/0.00</span>
+          </div>
+          <form id="form-pago">
+            <input type="hidden" name="productos" id="productosInput" />
+            <button type="submit" class="btn-pagar">Pagar <i class="fa-solid fa-bag-shopping"></i></button>
+            </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Script dinámico para cargar productos desde backend -->
+  <script>
+    fetch("http://localhost:8080/api/productos")
+      .then((res) => res.json())
+      .then((productos) => {
+        const contenedor = document.getElementById("contenedor-productos");
+        productos.forEach((producto) => {
+          const card = document.createElement("div");
+          card.className = "item";
+          card.setAttribute("data-id", producto.idProductos);
+          const base64 = `data:image/jpeg;base64,${producto.foto}`;
+
+          card.innerHTML = `
+            <img src="${base64}" class="img-item" alt="${producto.nombreProductos}">
+            <span class="titulo-item">${producto.nombreProductos}</span>
+            <span class="precio-item">S/${producto.precio.toFixed(2)}</span>
+            <button class="boton-item">Agregar al Carrito</button>
+          `;
+
+          contenedor.appendChild(card);
+          card.querySelector(".boton-item").addEventListener("click", agregarAlCarritoClicked);
+        });
+      })
+      .catch((error) => {
+        console.error("Error al cargar productos:", error);
+      });
+  </script>
+
+  <!-- Script para mostrar nombre de usuario y cerrar sesión -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const nombre = localStorage.getItem("nombreUsuario");
+      const spanNombre = document.getElementById("nombre-usuario");
+      if (nombre && spanNombre) {
+        spanNombre.textContent = "Usuario: " + nombre;
+      }
+
+      const cerrarSesion = document.getElementById("cerrarSesionIcon");
+      cerrarSesion.addEventListener("click", () => {
+        localStorage.removeItem("nombreUsuario");
+        alert("Sesión cerrada correctamente");
+        window.location.href = "../../Vista/User/Registro-Login.html";
+      });
+    });
+  </script>
+</body>
+</html>

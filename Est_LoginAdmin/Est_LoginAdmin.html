@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – Tienda Mass</title>
+
+  <!-- Fuentes y iconos -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKB4Imkb9tT3Lgxw85E+1i1V6Y5ljbjD0R9BVn1Ao0P5lrQ4a8XWLaG6fjSQ3BUnVJQyrx4hw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Hoja de estilos local -->
+  <link rel="stylesheet" href="Est_LoginAdmin.css">
+</head>
+
+<body>
+  <!-- Fondo completo -->
+  <div class="bg"></div>
+
+  <!-- Tarjeta de inicio de sesión -->
+  <section class="login-card">
+    <div class="avatar">
+      <img src="../assets/img/LogoMass.png" alt="Tienda Mass" />
+    </div>
+
+    <h2 class="title">LOG&nbsp;IN</h2>
+
+    <form autocomplete="off">
+      <div class="input-box">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" placeholder="Username" required />
+      </div>
+
+      <div class="input-box">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" placeholder="Password" required />
+      </div>
+
+      <label class="remember">
+        <input type="checkbox" />
+        <span>Recuérdame</span>
+      </label>
+
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+
+    <a href="#" class="forgot">¿Olvidaste la contraseña?</a>
+  </section>
+</body>
+</html>

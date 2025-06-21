@@ -1,0 +1,170 @@
+/* ---------- RESET & VARIABLES ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --mass-purple: #5762d5;
+  --mass-purple-dark: #3841b3;
+  --gray-100: #f5f7fa;
+  --gray-400: #b7b9c4;
+  --gray-700: #61646f;
+  --radius: 6px;
+  font-family: 'Poppins', sans-serif;
+}
+html, body {
+  height: 100%;
+}
+
+/* ---------- LAYOUT SPLIT ---------- */
+.split-wrapper {
+  display: flex;
+  height: 100%;
+}
+.hero-img {
+  flex: 1 1 50%;
+  background: url("../assets/img/RepartidorMass.jpg") center/cover no-repeat;
+}
+.form-area {
+  flex: 1 1 50%;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* ---------- FORM BOX ---------- */
+.form-box {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+.logo {
+  width: 76px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.subtitle {
+  font-size: 14px;
+  color: var(--gray-700);
+  margin-top: 4px;
+  margin-bottom: 32px;
+}
+
+/* ---------- INPUT GROUP ---------- */
+.input-group {
+  position: relative;
+  margin-bottom: 22px;
+}
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+  font-size: 14px;
+}
+.input-group input {
+  width: 100%;
+  padding: 14px 14px 14px 42px;
+  border: 2px solid var(--gray-400);
+  border-radius: var(--radius);
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.25s;
+}
+.input-group input:focus {
+  border-color: var(--mass-purple);
+}
+
+/* ---------- EXTRAS ---------- */
+.form-extra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  font-size: 13px;
+  color: var(--gray-700);
+}
+.form-extra a {
+  color: var(--gray-700);
+  text-decoration: none;
+}
+.form-extra a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- BUTTON ---------- */
+.btn-login {
+  width: 100%;
+  padding: 14px 0;
+  background: var(--mass-purple);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.btn-login:hover {
+  background: var(--mass-purple-dark);
+  transform: translateY(-2px);
+}
+
+/* ---------- DIVIDER ---------- */
+.divider {
+  margin: 30px 0 20px;
+  position: relative;
+  text-align: center;
+  font-size: 12px;
+  color: var(--gray-400);
+}
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: var(--gray-400);
+}
+.divider::before { left: 0; }
+.divider::after  { right: 0; }
+
+/* ---------- SOCIAL ICONS ---------- */
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 6px;
+  border-radius: 50%;
+  background: #e9ecf4;
+  color: var(--mass-purple);
+  font-size: 15px;
+  transition: background 0.25s;
+}
+.social a:hover {
+  background: var(--mass-purple);
+  color: #fff;
+}
+.social .fb { background: #4267B2; color: #fff; }
+.social .fb:hover { background: #314e87; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .split-wrapper { flex-direction: column; }
+  .hero-img { height: 40vh; }
+  .form-area { flex: none; }
+}

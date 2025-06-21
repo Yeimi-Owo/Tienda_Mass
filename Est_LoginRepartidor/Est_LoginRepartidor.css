@@ -1,4 +1,4 @@
-/* ---------- RESET & VARIABLES ---------- */
+
 *,
 *::before,
 *::after {
@@ -19,7 +19,6 @@ html, body {
   height: 100%;
 }
 
-/* ---------- LAYOUT SPLIT ---------- */
 .split-wrapper {
   display: flex;
   height: 100%;
@@ -37,7 +36,6 @@ html, body {
   padding: 40px;
 }
 
-/* ---------- FORM BOX ---------- */
 .form-box {
   width: 100%;
   max-width: 420px;
@@ -59,7 +57,6 @@ h1 {
   margin-bottom: 32px;
 }
 
-/* ---------- INPUT GROUP ---------- */
 .input-group {
   position: relative;
   margin-bottom: 22px;
@@ -86,7 +83,6 @@ h1 {
   border-color: var(--mass-purple);
 }
 
-/* ---------- EXTRAS ---------- */
 .form-extra {
   display: flex;
   justify-content: space-between;
@@ -103,7 +99,6 @@ h1 {
   text-decoration: underline;
 }
 
-/* ---------- BUTTON ---------- */
 .btn-login {
   width: 100%;
   padding: 14px 0;
@@ -121,7 +116,6 @@ h1 {
   transform: translateY(-2px);
 }
 
-/* ---------- DIVIDER ---------- */
 .divider {
   margin: 30px 0 20px;
   position: relative;
@@ -141,7 +135,6 @@ h1 {
 .divider::before { left: 0; }
 .divider::after  { right: 0; }
 
-/* ---------- SOCIAL ICONS ---------- */
 .social a {
   display: inline-flex;
   align-items: center;
@@ -162,7 +155,6 @@ h1 {
 .social .fb { background: #4267B2; color: #fff; }
 .social .fb:hover { background: #314e87; }
 
-/* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
   .split-wrapper { flex-direction: column; }
   .hero-img { height: 40vh; }

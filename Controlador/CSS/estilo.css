@@ -17,7 +17,7 @@ html {
 }
 
 body {
-    background-color: #353535;
+    background-color: #16d7c71c;
     /*fondo de la pagina*/
 
 }
@@ -29,7 +29,7 @@ body {
     /*ancho*/
     position: fixed;
     /*posicion fija*/
-    border-bottom: 1px solid #1f283e;
+    border-bottom: 1px solid #232b41;
     /*borde inferior de 1px de color plomo*/
     background-color: rgba(0, 0, 0, .7);
     z-index: 99;
@@ -54,7 +54,7 @@ body {
 }
 
 .usuario:hover {
-    color: #ff8011;
+    color: #eab906;
 }
 
 .imagen1 {
@@ -89,7 +89,7 @@ body {
 }
 
 .txtRojo {
-    color: #ff1133;
+    color: #eab906;
 }
 
 .menu_arriba header nav a {
@@ -101,7 +101,7 @@ body {
 }
 
 .menu_arriba header nav a:hover {
-    color: #ff1133;
+    color: #eab906;
 }
 
 .menu_arriba header .redes a {
@@ -112,7 +112,7 @@ body {
 }
 
 .menu_arriba header .redes a:hover {
-    color: #ff1133;
+    color: #eab906;
 }
 
 .nav-responsive {
@@ -133,7 +133,7 @@ body {
 }
 
 .fas:hover {
-    color: #ff1133;
+    color: #eab906;
 }
 
 /*-----------------------------*/
@@ -171,7 +171,7 @@ body {
 }
 
 .contenido-video .txtRojo {
-    color: red;
+    color: #eab906;
 }
 
 .contenido-video p {
@@ -358,7 +358,7 @@ body {
 }
 
 .nosotros .fila .col .contenedor-titulo .numero {
-    color: #ff1133;
+    color: #ffa011;
     font-weight: bold;
     display: block;
     font-size: 5rem;
@@ -369,7 +369,7 @@ body {
 }
 
 .nosotros .fila .col .contenedor-titulo .info .frase {
-    color: #ff1133;
+    color: #ffa011;
 }
 
 .nosotros .fila .col .contenedor-titulo .info h2 {
@@ -380,7 +380,7 @@ body {
     margin-bottom: 10px;
     line-height: 28px;
     font-size: 18px;       /* Aumenta el tamaño */
-    color: #e0e0e0;        /* Cambia el color a blanco (u otro que contraste) */
+    color: #050505;        /* Cambia el color a blanco (u otro que contraste) */
 }
 
 .nosotros .fila .col .p-especial {
@@ -407,9 +407,9 @@ body {
 }
 
 .nosotros .fila-nosotros button {
-    background-color: #ff1133;
+    background-color: #ffa011;
     border: none;
-    color: #fff;
+    color: #050505;
     padding: 15px 35px;
     font-size: 14px;
     letter-spacing: 3px;
@@ -429,7 +429,7 @@ body {
 
 
 .Planes {
-    color: #fff;
+    color: #050505;
     position: relative;
     max-width: 1100px;
     margin: auto;
@@ -474,7 +474,7 @@ body {
 }
 
 .Planes .fila .col .contenedor-titulo .numero {
-    color: #ff1133;
+    color: #ffa011;
     font-weight: bold;
     display: block;
     font-size: 5rem;
@@ -485,7 +485,7 @@ body {
 }
 
 .Planes .fila .col .contenedor-titulo .info .frase {
-    color: #ff1133;
+    color: #ffa011;
 }
 
 .Planes .fila .col .contenedor-titulo .info h2 {
@@ -521,7 +521,7 @@ body {
 }
 
 .Planes .info-planes table td i {
-    color: #ff1133;
+    color: #ffa011;
     font-size: 2.5rem;
     margin-bottom: 30px;
 
@@ -556,9 +556,9 @@ body {
 }
 
 .Planes .fila-planes button {
-    background-color: #ff1133;
+    background-color: #ffa011;
     border: none;
-    color: #fff;
+    color: #050505;
     padding: 15px 35px;
     font-size: 14px;
     letter-spacing: 3px;
@@ -579,7 +579,7 @@ body {
 
 
 .Tienda {
-    color: #fff;
+    color: #050505;
     position: relative;
     max-width: 1100px;
     margin: auto;
@@ -623,7 +623,7 @@ body {
 }
 
 .Tienda .fila .col .contenedor-titulo .numero {
-    color: #ff1133;
+    color: #ffa011;
     font-weight: bold;
     display: block;
     font-size: 5rem;
@@ -634,7 +634,7 @@ body {
 }
 
 .Tienda .fila .col .contenedor-titulo .info .frase {
-    color: #ff1133;
+    color: #ffa011;
 }
 
 .Tienda .fila .col .contenedor-titulo .info h2 {
@@ -674,7 +674,7 @@ body {
 }
 
 .Tienda .info-productos table td i {
-    color: #ff1133;
+    color: #ffa011;
     font-size: 2.5rem;
     margin-bottom: 20px;
 
@@ -709,7 +709,7 @@ body {
 }
 
 .Tienda .fila-productos button {
-    background-color: #ff1133;
+    background-color: #ffa011;
     border: none;
     color: #fff;
     padding: 15px 35px;
@@ -732,7 +732,7 @@ body {
 .FOTOS {
 
 
-    color: #fff;
+    color: #050505;
     position: relative;
     max-width: 1100px;
     margin: auto;
@@ -755,7 +755,7 @@ body {
 }
 
 .FOTOS .contenedor-titulo .numero {
-    color: #ff1133;
+    color: #ffa011;
     font-weight: bold;
     display: block;
     font-size: 5rem;
@@ -766,7 +766,7 @@ body {
 }
 
 .FOTOS .contenedor-titulo .info .frase {
-    color: #ff1133;
+    color: #ffa011;
 }
 
 .FOTOS .contenedor-titulo .info h2 {
@@ -841,7 +841,7 @@ body {
 }
 
 .Entrenadores .fila .col .contenedor-titulo .info .frase {
-    color: #ff1133;
+    color: #ffa011;
 }
 
 .Entrenadores .fila .col .contenedor-titulo .info h2 {
@@ -877,7 +877,7 @@ body {
 }
 
 .Entrenadores .info-entrenadores table td i {
-    color: #ff1133;
+    color: #ffa011;
     font-size: 2.5rem;
     margin-bottom: 20px;
 
@@ -912,7 +912,7 @@ body {
 }
 
 .Entrenadores .fila-entrenadores button {
-    background-color: #ff1133;
+    background-color: #ffa011;
     border: none;
     color: #fff;
     padding: 15px 35px;
@@ -968,7 +968,7 @@ body {
 .input-group input:focus,
 .input-group textarea:focus {
     outline: none;
-    border: 1px solid #ff2a2a;
+    border: 1px solid #eab906;
 }
 
 .contacto .contenido-seccion {
@@ -984,7 +984,7 @@ body {
 }
 
 .contacto .contenedor-titulo .numero {
-    color: #ff1133;
+    color: #ffa011;
     font-weight: bold;
     display: block;
     font-size: 5rem;
@@ -995,7 +995,7 @@ body {
 }
 
 .contacto .contenedor-titulo .info .frase {
-    color: #ff1133;
+    color: #ffa011;
 }
 
 .contacto .contenedor-titulo .info h2 {
@@ -1037,7 +1037,7 @@ body {
     margin: auto;
     margin-top: 30px;
     border: none;
-    background-color: #ff1133;
+    background-color: #ffa011;
     color: #fff;
     font-size: 18px;
     padding: 10px 25px;
@@ -1054,7 +1054,7 @@ body {
 }
 
 .contacto i {
-    color: #ff1133;
+    color: #ffa011;
     display: inline-block;
     margin-right: 10px;
 }
@@ -1066,7 +1066,7 @@ body {
 
 .imput,
 textarea {
-    background-color: #818ec6;
+    background-color: #353535;
     padding: 20px 14px;
     margin-bottom: 25px;
     border: 0;
@@ -1082,7 +1082,7 @@ textarea {
 }
 
 :focus {
-    background-color: #615c63;
+    background-color: #353535;
 
 }
 
@@ -1090,7 +1090,7 @@ textarea {
     background-color: transparent;
     color: white;
     font-size: 17px;
-    border: 2px solid #ff2a2a;
+    border: 2px solid #ffa011;
     border-radius: 6px;
     padding: 10px 20px;
     cursor: pointer;
@@ -1099,7 +1099,7 @@ textarea {
 }
 
 .btn:hover {
-    background-color: #ff2a2a;
+    background-color: #eab906;
     color: white;
     transform: scale(1.05);
 }
@@ -1128,5 +1128,5 @@ textarea {
 .navb-logo span {
     font-size: 20px;
     font-weight: bold;
-    color: #333;
+    color: #353535;
 }

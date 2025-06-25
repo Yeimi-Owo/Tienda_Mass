@@ -409,7 +409,7 @@ body {
 .nosotros .fila-nosotros button {
     background-color: #ffa011;
     border: none;
-    color: #050505;
+    color: #fff;
     padding: 15px 35px;
     font-size: 14px;
     letter-spacing: 3px;
@@ -438,7 +438,7 @@ body {
 }
 
 .Planes .contenido {
-    background: linear-gradient(rgba(0, 14, 41, 0.6), rgba(0, 7, 78, 0.7)), url(../img.menu/Planes.jpg);
+    background: linear-gradient(rgba(0, 14, 41, 0.208), rgba(0, 7, 78, 0.411)), url(../img.menu/IMG\ MASS\ 10.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -558,7 +558,7 @@ body {
 .Planes .fila-planes button {
     background-color: #ffa011;
     border: none;
-    color: #050505;
+    color: #fff;
     padding: 15px 35px;
     font-size: 14px;
     letter-spacing: 3px;
@@ -588,7 +588,7 @@ body {
 }
 
 .Tienda .contenido {
-    background: linear-gradient(rgba(0, 14, 41, 0.6), rgba(0, 7, 78, 0.7)), url(../img.menu/TIENDA.jpg);
+    background: linear-gradient(rgba(0, 14, 41, 0.208), rgba(0, 7, 78, 0.411)), url(../img.menu/IMG\ MASS\ 11.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -903,7 +903,7 @@ body {
 }
 
 .TieEntrenadoresnda .fila-entrenadores .frase {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
 }
 
@@ -938,10 +938,10 @@ body {
 
 .contacto {
     color: #fff;
-    background: linear-gradient(rgba(0, 14, 41, 0.6), rgba(0, 7, 78, 0.7)), url(../img.menu/fondo.jpg);
+    background: linear-gradient(rgba(0, 14, 41, 0.6), rgba(0, 7, 78, 0.7)), url(../img.menu/IMG\ MASS\ 9.svg);
     background-size: cover;
     background-position: center center;
-    padding: 100px 20px;
+    padding: 15px 10px;
 
 }
 

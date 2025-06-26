@@ -24,7 +24,6 @@ html {
     left: 0%;
 }
 
-
 .imagen1 {
     margin: 0 auto;
     width: 30px;
@@ -45,7 +44,7 @@ html {
 }
 
 .txtRojo {
-    color: #ff1133;
+    color: #eab906;
 }
 
 .contenedor-header header nav a {
@@ -57,7 +56,7 @@ html {
 }
 
 .contenedor-header header nav a:hover {
-    color: #ff1133;
+    color: #eab906;
 }
 
 .contenedor-header header .redes a {
@@ -68,7 +67,7 @@ html {
 }
 
 .contenedor-header header .redes a:hover {
-    color: #ff1133;
+    color: #eab906;
 }
 
 .nav-responsive {
@@ -89,7 +88,7 @@ html {
 }
 
 .usuario:hover {
-    color: #ff1133;
+    color: #eab906;;
 }
 
 .fas {
@@ -105,7 +104,7 @@ html {
 }
 
 .fas:hover {
-    color: #ff1133;
+    color: #fff;
 }
 
 .icon-cart {
@@ -122,7 +121,7 @@ html {
 
 .icon-cart:hover {
     cursor: pointer;
-    color: #ff1133;
+    color: #fff;
 }
 
 

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos | TruckMac</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Estilos -->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="navbar-top"></div>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav"></div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Pedidos</h1>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="message-area"></div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Registros de Pedidos</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre Completo</th>
+                                                <th>Fecha</th>
+                                                <th>Dirección</th>
+                                                <th>Método de Pago</th>
+                                                <th>Correo Electrónico</th>
+                                                <th>Estado</th>
+                                                <th>Total</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-pedidos">
+                                            <!-- Filas dinámicas aquí -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <div data-include="includes/footer.html"></div>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Venta -->
+    <div class="modal fade" id="agregarVentaModal" tabindex="-1" aria-labelledby="agregarVentaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="agregarVentaModalLabel">Nueva Venta</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" id="form-agregar-venta">
+                        <div class="col-md-12">
+                            <label class="form-label">ID Usuario</label>
+                            <input type="number" class="form-control" name="id_usuario" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Estado</label>
+                            <select class="form-select" name="estado" required>
+                                <option value="pendiente" selected>Pendiente</option>
+                                <option value="completado">Completado</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Total</label>
+                            <input type="number" step="0.01" class="form-control" name="total" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+    <script>
+        // Navbar y Sidebar
+        fetch('includes/navbar-top.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('navbar-top').innerHTML = html;
+                setTimeout(() => {
+                    const toggleBtn = document.getElementById('sidebarToggle');
+                    if (toggleBtn) toggleBtn.addEventListener('click', () => {
+                        document.body.classList.toggle('sb-sidenav-toggled');
+                    });
+                }, 100);
+            });
+
+        fetch('includes/sidebar.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('layoutSidenav_nav').innerHTML = html;
+            });
+
+        // Simular datos desde base de datos
+        const pedidos = [
+            {
+                idCompra: "101",
+                id_usuario: "001",
+                nombre_completo: "Carlos Pérez",
+                fecha: "2025-06-25",
+                direccion: "Av. Siempre Viva 123",
+                metodo_pago: "Tarjeta",
+                correo: "carlos@example.com",
+                estado: "Pendiente",
+                total: 150.00
+            },
+            {
+                idCompra: "102",
+                id_usuario: "002",
+                nombre_completo: "Laura Martínez",
+                fecha: "2025-06-26",
+                direccion: "Calle Falsa 456",
+                metodo_pago: "Yape",
+                correo: "laura@example.com",
+                estado: "Completado",
+                total: 220.00
+            }
+        ];
+
+        // Renderizar tabla
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabla = document.getElementById("tabla-pedidos");
+            if (pedidos.length > 0) {
+                pedidos.forEach(p => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${p.nombre_completo}</td>
+                        <td>${p.fecha}</td>
+                        <td>${p.direccion}</td>
+                        <td>${p.metodo_pago}</td>
+                        <td>${p.correo}</td>
+                        <td>${p.estado}</td>
+                        <td>S/${p.total.toFixed(2)}</td>
+                        <td>
+                            <a href="list-detalle-pedido.html?id=${p.idCompra}" class="btn btn-primary">Ver Detalles</a>
+                            <a href="editar-pedido.html?editid=${p.idCompra}" class="btn btn-success">Editar</a>
+                        </td>
+                    `;
+                    tabla.appendChild(tr);
+                });
+            } else {
+                tabla.innerHTML = `<tr><td colspan="8">No se encontraron ventas</td></tr>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -11,6 +11,114 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        /* Paleta Mass */
+        :root {
+            --azul-mass: #002855;
+            --amarillo-mass: #FFD700;
+            --gris-fondo: #f8f9fa;
+            --gris-borde: #dee2e6;
+        }
+
+        body {
+            background-color: var(--gris-fondo);
+        }
+
+        /* Títulos */
+        h1,
+        h4 {
+            color: var(--azul-mass);
+            font-weight: bold;
+        }
+
+        /* Migas de pan */
+        .breadcrumb {
+            background-color: transparent;
+            font-weight: 500;
+            color: var(--azul-mass);
+        }
+
+        /* Tarjetas */
+        .card {
+            border: 1px solid var(--gris-borde);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            background-color: var(--azul-mass);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 12px 20px;
+        }
+
+        /* Tabla detalle productos */
+        #tabla-detalle {
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        #tabla-detalle thead {
+            background-color: var(--azul-mass);
+        }
+
+        #tabla-detalle thead th {
+            color: white !important;
+            font-weight: 600;
+            text-align: center;
+            padding: 12px;
+            font-size: 15px;
+        }
+
+        #tabla-detalle tbody td {
+            text-align: center;
+            color: #333;
+            padding: 10px;
+        }
+
+        #tabla-detalle tfoot td {
+            font-weight: bold;
+            background-color: #f1f1f1;
+            color: var(--azul-mass);
+            text-align: right;
+            padding: 12px;
+        }
+
+        .card-header {
+            background-color: var(--azul-mass);
+            color: white !important;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 12px 20px;
+        }
+
+        .card-header h4 {
+            color: white !important;
+        }
+
+        /* Botón "Volver" */
+        .btn-secondary {
+            background-color: var(--amarillo-mass);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e6c200;
+            color: #000;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -27,7 +135,7 @@
                 <section class="container-fluid px-4">
                     <h1 class="mt-4">Detalle de Pedido</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active"><b>TruckMAC</b></li>
+                        <li class="breadcrumb-item active"><b>Tienda Mass</b></li>
                         <li class="breadcrumb-item">Pedidos</li>
                         <li class="breadcrumb-item">Detalle de Pedido</li>
                     </ol>

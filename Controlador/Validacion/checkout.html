@@ -1,92 +1,132 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finalizar Compra - SILHOUETTE GYM</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finalizar Compra - TruckMAC</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
-    body {
-      background: #1a1a1a;
-      color: #fff;
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .checkout-container {
-      max-width: 700px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #2b2b2b;
-      border-radius: 10px;
-    }
-    h1, h2, h3 {
-      color: #f44336;
-    }
-    .producto {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid #444;
-      padding: 0.5rem 0;
-    }
-    input, select {
-      width: 100%;
-      padding: 0.7rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 5px;
-      background: #1a1a1a;
-      color: white;
-    }
-    .metodos-pago {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .metodo {
-      background: #1a1a1a;
-      border: 1px solid #f44336;
-      border-radius: 8px;
-      text-align: center;
-      padding: 1rem;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .metodo:hover {
-      background: #f44336;
-      color: white;
-    }
-    .metodo.selected {
-      background: #f44336;
-      color: white;
-    }
-    .detalle-metodo {
-      display: none;
-      background: #121212;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-left: 4px solid #f44336;
-    }
-    .detalle-metodo.active {
-      display: block;
-    }
-    #total {
-      text-align: right;
-      font-size: 1.3rem;
-      color: #f44336;
-      margin-top: 1rem;
-    }
-    button {
-      width: 100%;
-      padding: 0.9rem;
-      background: #f44336;
-      color: white;
-      border: none;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+   :root {
+  --azul-mass: #0033a0;
+  --amarillo-mass: #ffd600;
+  --blanco: #ffffff;
+  --gris-suave: #f5f5f5;
+  --sombra: rgba(0, 0, 0, 0.05);
+  --fuente-principal: 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--gris-suave);
+  font-family: var(--fuente-principal);
+  color: #333;
+}
+
+.checkout-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px var(--sombra);
+  border-top: 4px solid var(--azul-mass);
+}
+
+h1, h2, h3 {
+  color: var(--azul-mass);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.producto {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.metodos-pago {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.metodo {
+  flex: 1 1 140px;
+  text-align: center;
+  padding: 16px;
+  background: #fff;
+  border: 2px solid var(--azul-mass);
+  color: var(--azul-mass);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 2px 8px var(--sombra);
+}
+
+.metodo:hover {
+  background-color: var(--amarillo-mass);
+  color: #000;
+}
+
+.metodo.selected {
+  background-color: var(--azul-mass);
+  color: white;
+  border-color: var(--azul-mass);
+}
+
+.detalle-metodo {
+  display: none;
+  background: #fefefe;
+  border-left: 4px solid var(--azul-mass);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.detalle-metodo.active {
+  display: block;
+}
+
+#total {
+  text-align: right;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--azul-mass);
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--azul-mass);
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 10px var(--sombra);
+}
+
+button:hover {
+  background-color: var(--amarillo-mass);
+  color: #111;
+}
+
   </style>
 </head>
 <body>
@@ -153,50 +193,49 @@
     }
 
     function confirmarCompra() {
-  const nombre = document.getElementById("nombre").value;
-  const correo = document.getElementById("correo").value;
-  const direccion = document.getElementById("direccion").value;
-  const metodo = document.querySelector(".metodo.selected")?.dataset.metodo || "";
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      const nombre = document.getElementById("nombre").value;
+      const correo = document.getElementById("correo").value;
+      const direccion = document.getElementById("direccion").value;
+      const metodo = document.querySelector(".metodo.selected")?.dataset.metodo || "";
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  if (!nombre || !correo || !direccion || !metodo || carrito.length === 0) {
-    alert("Completa todos los campos y selecciona al menos un producto.");
-    return;
-  }
+      if (!nombre || !correo || !direccion || !metodo || carrito.length === 0) {
+        alert("Completa todos los campos y selecciona al menos un producto.");
+        return;
+      }
 
-  const pedidoRequest = {
-    idUsuario: 1, 
-    direccion: direccion,
-    metodoPago: metodo,
-    correo: correo,
-    total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
-    productos: carrito.map(item => ({
-      idProductos: parseInt(item.idProductos),
-      cantidad: item.cantidad,
-      precioUnitario: item.precio
-    }))
-  };
+      const pedidoRequest = {
+        idUsuario: 1,
+        direccion: direccion,
+        metodoPago: metodo,
+        correo: correo,
+        total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
+        productos: carrito.map(item => ({
+          idProductos: parseInt(item.idProductos),
+          cantidad: item.cantidad,
+          precioUnitario: item.precio
+        }))
+      };
 
-  fetch("http://localhost:8080/api/pedidos/registrar", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(pedidoRequest)
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("Error al registrar el pedido");
-    return res.text();
-  })
-  .then(msg => {
-    alert("✅ " + msg);
-    localStorage.removeItem("carrito");
-    window.location.href = "../../Vista/Home/Tienda.html";
-  })
-  .catch(err => {
-    console.error(err);
-    alert("❌ No se pudo registrar el pedido.");
-  });
-}
-
+      fetch("http://localhost:8080/api/pedidos/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pedidoRequest)
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Error al registrar el pedido");
+          return res.text();
+        })
+        .then(msg => {
+          alert("✅ " + msg);
+          localStorage.removeItem("carrito");
+          window.location.href = "../../Vista/Home/Tienda.html";
+        })
+        .catch(err => {
+          console.error(err);
+          alert("❌ No se pudo registrar el pedido.");
+        });
+    }
   </script>
 </body>
 </html>

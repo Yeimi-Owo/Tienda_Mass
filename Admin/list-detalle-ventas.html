@@ -10,6 +10,110 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --azul-mass: #002855;
+            --amarillo-mass: #FFD700;
+            --gris-fondo: #f8f9fa;
+            --gris-borde: #dee2e6;
+            --gris-oscuro: #adb5bd;
+        }
+
+        body {
+            background-color: var(--gris-fondo);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #212529;
+        }
+
+        h1,
+        h4 {
+            color: var(--azul-mass);
+            font-weight: bold;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            font-weight: 500;
+            color: var(--azul-mass);
+        }
+
+        .breadcrumb-item.active b {
+            color: var(--gris-oscuro);
+        }
+
+        .card {
+            border: 1px solid var(--gris-borde);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            background-color: white;
+        }
+
+        .card-header {
+            background-color: var(--azul-mass);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 12px 20px;
+        }
+
+        .card-header h4 {
+            margin: 0;
+            color: white;
+        }
+
+        .card-body p {
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .table th {
+            background-color: var(--azul-mass);
+            color: white;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+        .table tfoot td {
+            background-color: #f1f1f1;
+            font-weight: bold;
+            color: var(--azul-mass);
+        }
+
+        .btn-secondary {
+            background-color: var(--amarillo-mass);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e6c200;
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .card-body p {
+                font-size: 0.95rem;
+            }
+
+            .table th,
+            .table td {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+
 </head>
 
 <body>

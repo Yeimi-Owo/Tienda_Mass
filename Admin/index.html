@@ -12,6 +12,107 @@
     <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
+    <head>
+        ...
+        <!-- Estilos -->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+        <style>
+            :root {
+                --azul-mass: #0033a0;
+                --azul-hover: #002772;
+                --azul-suave: #e6f0ff;
+                --amarillo-mass: #ffd600;
+                --amarillo-oscuro: #e6c200;
+                --gris-suave: #f4f4f4;
+                --gris-claro: #e0e0e0;
+                --gris-texto: #333;
+                --negro-suave: #1a1a1a;
+                --fuente: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                background-color: var(--gris-suave);
+                font-family: var(--fuente);
+            }
+
+            h1.mt-4 {
+                color: var(--azul-mass);
+                font-weight: 700;
+            }
+
+            .breadcrumb {
+                background-color: transparent;
+            }
+
+            .breadcrumb-item.active {
+                color: var(--azul-hover);
+                font-weight: 500;
+            }
+
+            /* Tarjetas del dashboard */
+            .card {
+                border: none;
+                border-radius: 12px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card:hover {
+                transform: scale(1.03);
+                box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+            }
+
+            .card .card-body {
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            .card .card-footer {
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .card .card-footer a {
+                transition: all 0.3s ease;
+                font-weight: 500;
+            }
+
+            .card .card-footer a:hover {
+                color: var(--amarillo-mass);
+                text-decoration: underline;
+            }
+
+            /* Colores personalizados */
+            .bg-azul-mass {
+                background-color: var(--azul-mass) !important;
+                color: white !important;
+            }
+
+            .bg-amarillo {
+                background-color: var(--amarillo-mass) !important;
+                color: #000 !important;
+            }
+
+            .bg-azul-hover {
+                background-color: var(--azul-hover) !important;
+                color: white !important;
+            }
+
+            .bg-gris-intenso {
+                background-color: #4a4a4a !important;
+                color: white !important;
+            }
+
+            p span.text-danger {
+                color: var(--amarillo-mass) !important;
+                font-weight: bold;
+            }
+        </style>
+
+    </head>
+
 </head>
 
 <body>
@@ -87,31 +188,31 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>
     <script src="js/datatables-simple-demo.js"></script>
 
-  <script>
-  // Cargar navbar-top
-  fetch('includes/navbar-top.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('navbar-top').innerHTML = html;
+    <script>
+        // Cargar navbar-top
+        fetch('includes/navbar-top.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('navbar-top').innerHTML = html;
 
-      // Esperar un poco para asegurar que el DOM del navbar se cargue
-      setTimeout(() => {
-        const toggleBtn = document.getElementById('sidebarToggle');
-        if (toggleBtn) {
-          toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('sb-sidenav-toggled');
-          });
-        }
-      }, 100);
-    });
+                // Esperar un poco para asegurar que el DOM del navbar se cargue
+                setTimeout(() => {
+                    const toggleBtn = document.getElementById('sidebarToggle');
+                    if (toggleBtn) {
+                        toggleBtn.addEventListener('click', () => {
+                            document.body.classList.toggle('sb-sidenav-toggled');
+                        });
+                    }
+                }, 100);
+            });
 
-  // Cargar sidebar
-  fetch('includes/sidebar.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('layoutSidenav_nav').innerHTML = html;
-    });
-</script>
+        // Cargar sidebar
+        fetch('includes/sidebar.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('layoutSidenav_nav').innerHTML = html;
+            });
+    </script>
 
 </body>
 

@@ -10,6 +10,124 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --azul-mass: #002855;
+            --amarillo-mass: #FFD700;
+            --amarillo-hover: #e6b800;
+            --gris-fondo: #f8f9fa;
+            --gris-borde: #dee2e6;
+            --gris-claro: #f1f1f1;
+            --celeste: #00AEEF;
+        }
+
+        body {
+            background-color: var(--gris-fondo);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #212529;
+        }
+
+        h1 {
+            color: var(--azul-mass);
+            font-weight: bold;
+        }
+
+        .card {
+            border: 1px solid var(--gris-borde);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            background-color: white;
+        }
+
+        .card-header {
+            background-color: var(--azul-mass);
+            color: white;
+            padding: 12px 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card-header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .table th {
+            background-color: var(--azul-mass);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+            padding: 12px;
+        }
+
+        .table td:nth-child(1) {
+            font-weight: 500;
+        }
+
+        .table-bordered {
+            border: 1px solid var(--gris-borde);
+        }
+
+        .btn-primary {
+            background-color: var(--celeste);
+            color: black;
+            border: none;
+            font-weight: 500;
+            margin: 0 4px;
+        }
+
+        .btn-primary:hover {
+            background-color: #001e3d;
+        }
+
+        .btn-success {
+            background-color:var(--amarillo-mass);
+            color: black;
+            border: none;
+            font-weight: 500;
+        }
+
+        .btn-success:hover {
+            background-color:var(--amarillo-hover);
+            color: black;
+        }
+
+        .modal-header {
+            background-color: var(--azul-mass);
+            color: white;
+        }
+
+        .modal-footer .btn-primary {
+            background-color: var(--azul-mass);
+        }
+
+        .modal-footer .btn-primary:hover {
+            background-color: #001e3d;
+        }
+
+        @media (max-width: 768px) {
+
+            .table th,
+            .table td {
+                font-size: 0.9rem;
+            }
+
+            .card-header h4 {
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -61,7 +179,8 @@
     </div>
 
     <!-- Modal Nueva Venta -->
-    <div class="modal fade" id="agregarVentaModal" tabindex="-1" aria-labelledby="agregarVentaModalLabel" aria-hidden="true">
+    <div class="modal fade" id="agregarVentaModal" tabindex="-1" aria-labelledby="agregarVentaModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

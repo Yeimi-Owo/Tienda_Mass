@@ -39,7 +39,7 @@
 
     .btn-primary:hover {
       background-color: var(--amarillo-hover);
-      color:black;
+      color: black;
     }
 
     .btn-warning {
@@ -51,7 +51,7 @@
 
     .btn-warning:hover {
       background-color: var(--amarillo-hover);
-      color:black;
+      color: black;
     }
 
     .btn-danger {
@@ -197,15 +197,25 @@
     </div>
   </div>
 
-  <!-- Incluir Navbar y Sidebar -->
   <script>
+    // Navbar y Sidebar
     fetch('includes/navbar-top.html')
       .then(res => res.text())
-      .then(html => document.getElementById('navbar-top').innerHTML = html);
+      .then(html => {
+        document.getElementById('navbar-top').innerHTML = html;
+        setTimeout(() => {
+          const toggleBtn = document.getElementById('sidebarToggle');
+          if (toggleBtn) toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('sb-sidenav-toggled');
+          });
+        }, 100);
+      });
 
     fetch('includes/sidebar.html')
       .then(res => res.text())
-      .then(html => document.getElementById('layoutSidenav_nav').innerHTML = html);
+      .then(html => {
+        document.getElementById('layoutSidenav_nav').innerHTML = html;
+      });
   </script>
 
 

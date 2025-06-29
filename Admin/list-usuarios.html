@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Usuarios | SILHOUETTE GYM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet" />
+  <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div id="navbar-top"></div>
+
+  <div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div id="layoutSidenav_nav"></div>
+
+    <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+          <h1 class="mt-4">Usuarios</h1>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Registro de Usuarios
+                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Agregar Nuevo
+                    </button>
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <table id="tabla-usuarios" class="table table-bordered" style="text-align: center;">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nombre Completo</th>
+                        <th>Usuario</th>
+                        <th>Correo</th>
+                        <th>Contraseña</th>
+                        <th>Fecha Registro</th>
+                        <th>Activo</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; SILHOUETTE GYM 2025</div>
+            <div>
+              <a href="#">Política y Privacidad</a>
+              &middot;
+              <a href="#">Términos & Condiciones</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal Registrar / Editar -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Usuario</h1>
+        </div>
+        <div class="modal-body">
+          <form class="row g-3" id="form-usuario">
+            <div class="col-md-12">
+              <label class="form-label">Nombre Completo</label>
+              <input type="text" class="form-control" id="txt-nombre" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Usuario</label>
+              <input type="text" class="form-control" id="txt-usuario" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Correo</label>
+              <input type="email" class="form-control" id="txt-correo" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="txt-contrasena" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Fecha de Registro</label>
+              <input type="datetime-local" class="form-control" id="txt-fecha" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Activo (1 o 0)</label>
+              <input type="number" class="form-control" id="txt-activo" min="0" max="1" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Cargar Navbar y Sidebar -->
+  <script>
+    fetch('includes/navbar-top.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-top').innerHTML = html;
+
+        setTimeout(() => {
+          const toggleBtn = document.getElementById('sidebarToggle');
+          if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+              document.body.classList.toggle('sb-sidenav-toggled');
+            });
+          }
+        }, 100);
+      });
+
+    fetch('includes/sidebar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('layoutSidenav_nav').innerHTML = html;
+      });
+  </script>
+
+  <!-- CRUD JS -->
+  <script>
+    let editando = false;
+    let idEditando = null;
+
+    function cargarUsuarios() {
+      fetch('http://localhost:8080/api/usuarios')
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector('#tabla-usuarios tbody');
+          tbody.innerHTML = '';
+          data.forEach(u => {
+            tbody.innerHTML += `
+              <tr>
+                <td>${u.id_usuario}</td>
+                <td>${u.nombre_completo}</td>
+                <td>${u.usuario}</td>
+                <td>${u.correo}</td>
+                <td>${'*'.repeat(u.contrasena.length)}</td>
+                <td>${u.fecha_registro}</td>
+                <td>${u.activo}</td>
+                <td>
+                  <button class="btn btn-success" onclick="cargarFormulario(${u.id_usuario}, '${u.nombre_completo}', '${u.usuario}', '${u.correo}', '${u.contrasena}', '${u.fecha_registro}', ${u.activo})">Editar</button>
+                  <button class="btn btn-danger" onclick="eliminarUsuario(${u.id_usuario})">Eliminar</button>
+                </td>
+              </tr>
+            `;
+          });
+        });
+    }
+
+    cargarUsuarios();
+
+    document.querySelector('#form-usuario').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const usuario = {
+        nombre_completo: document.getElementById('txt-nombre').value,
+        usuario: document.getElementById('txt-usuario').value,
+        correo: document.getElementById('txt-correo').value,
+        contrasena: document.getElementById('txt-contrasena').value,
+        fecha_registro: document.getElementById('txt-fecha').value,
+        activo: parseInt(document.getElementById('txt-activo').value)
+      };
+
+      const url = editando
+        ? `http://localhost:8080/api/usuarios/${idEditando}`
+        : `http://localhost:8080/api/usuarios`;
+
+      const metodo = editando ? 'PUT' : 'POST';
+
+      fetch(url, {
+        method: metodo,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(usuario)
+      })
+        .then(res => {
+          if (res.ok) location.reload();
+          else throw new Error('Error al guardar');
+        })
+        .catch(err => alert(err.message));
+    });
+
+    function cargarFormulario(id, nombre, usuario, correo, contrasena, fecha, activo) {
+      editando = true;
+      idEditando = id;
+
+      document.getElementById('txt-nombre').value = nombre;
+      document.getElementById('txt-usuario').value = usuario;
+      document.getElementById('txt-correo').value = correo;
+      document.getElementById('txt-contrasena').value = contrasena;
+      document.getElementById('txt-fecha').value = fecha;
+      document.getElementById('txt-activo').value = activo;
+
+      document.getElementById('exampleModalLabel').textContent = 'Editar Usuario';
+      const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+      modal.show();
+    }
+
+    function eliminarUsuario(id) {
+      if (!confirm('¿Estás segura de eliminar este usuario?')) return;
+
+      fetch(`http://localhost:8080/api/usuarios/${id}`, {
+        method: 'DELETE'
+      })
+        .then(res => {
+          if (res.ok) location.reload();
+          else throw new Error('Error al eliminar');
+        })
+        .catch(err => alert(err.message));
+    }
+
+    document.querySelector('[data-bs-target="#exampleModal"]').addEventListener('click', () => {
+      editando = false;
+      idEditando = null;
+      document.getElementById('form-usuario').reset();
+      document.getElementById('exampleModalLabel').textContent = 'Nuevo Usuario';
+    });
+  </script>
+</body>
+</html>

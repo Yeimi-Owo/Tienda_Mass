@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Finalizar Compra - SILHOUETTE GYM</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
@@ -35,8 +35,8 @@
       margin-bottom: 1rem;
       border: none;
       border-radius: 5px;
-      background: #1a1a1a;
-      color: white;
+      background: #f0f4ff;
+      color: black;
     }
     .metodos-pago {
       display: grid;
@@ -97,17 +97,17 @@
     <div id="resumen-productos"></div>
 
     <h3>Datos del Cliente</h3>
-    <input type="text" placeholder="Nombre completo" id="nombre" required>
-    <input type="email" placeholder="Correo electrónico" id="correo" required>
-    <input type="text" placeholder="Dirección de envío" id="direccion" required>
+    <input type="text" placeholder="Nombre completo" id="nombre" required />
+    <input type="email" placeholder="Correo electrónico" id="correo" required />
+    <input type="text" placeholder="Dirección de envío" id="direccion" required />
 
     <h3>Método de Pago</h3>
     <div class="metodos-pago">
-      <div class="metodo" data-metodo="efectivo"><i class="fas fa-money-bill-wave"></i><br> Efectivo</div>
-      <div class="metodo" data-metodo="yape"><i class="fas fa-mobile-alt"></i><br> Yape/Plin</div>
-      <div class="metodo" data-metodo="deposito"><i class="fas fa-university"></i><br> Depósito</div>
-      <div class="metodo" data-metodo="paypal"><i class="fab fa-paypal"></i><br> PayPal</div>
-      <div class="metodo" data-metodo="tarjeta"><i class="fas fa-credit-card"></i><br> Tarjeta</div>
+      <div class="metodo" data-metodo="efectivo"><i class="fas fa-money-bill-wave"></i><br>Efectivo</div>
+      <div class="metodo" data-metodo="yape"><i class="fas fa-mobile-alt"></i><br>Yape/Plin</div>
+      <div class="metodo" data-metodo="deposito"><i class="fas fa-university"></i><br>Depósito</div>
+      <div class="metodo" data-metodo="paypal"><i class="fab fa-paypal"></i><br>PayPal</div>
+      <div class="metodo" data-metodo="tarjeta"><i class="fas fa-credit-card"></i><br>Tarjeta</div>
     </div>
 
     <div id="detalles-metodo"></div>
@@ -153,50 +153,76 @@
     }
 
     function confirmarCompra() {
-  const nombre = document.getElementById("nombre").value;
-  const correo = document.getElementById("correo").value;
-  const direccion = document.getElementById("direccion").value;
-  const metodo = document.querySelector(".metodo.selected")?.dataset.metodo || "";
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  if (!nombre || !correo || !direccion || !metodo || carrito.length === 0) {
-    alert("Completa todos los campos y selecciona al menos un producto.");
-    return;
-  }
+      console.log("ID del usuario autenticado:", localStorage.getItem("usuarioId")); // 👈 Esto imprime el ID actual
+      const nombre = document.getElementById("nombre").value;
+      const correo = document.getElementById("correo").value;
+      const direccion = document.getElementById("direccion").value;
+      const metodo = document.querySelector(".metodo.selected")?.dataset.metodo || "";
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  const pedidoRequest = {
-    idUsuario: 1, 
-    direccion: direccion,
-    metodoPago: metodo,
-    correo: correo,
-    total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
-    productos: carrito.map(item => ({
-      idProductos: parseInt(item.idProductos),
-      cantidad: item.cantidad,
-      precioUnitario: item.precio
-    }))
-  };
+      if (!nombre || !correo || !direccion || !metodo || carrito.length === 0) {
+        alert("Completa todos los campos y selecciona al menos un producto.");
+        return;
+      }
 
-  fetch("http://localhost:8080/api/pedidos/registrar", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(pedidoRequest)
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("Error al registrar el pedido");
-    return res.text();
-  })
-  .then(msg => {
-    alert("✅ " + msg);
-    localStorage.removeItem("carrito");
-    window.location.href = "../../Vista/Home/Tienda.html";
-  })
-  .catch(err => {
-    console.error(err);
-    alert("❌ No se pudo registrar el pedido.");
-  });
-}
+      const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
 
+      const pedidoRequest = {
+        idUsuario: parseInt(localStorage.getItem("usuarioId")),
+        direccion: direccion,
+        metodoPago: metodo,
+        correo: correo,
+        total: total,
+        productos: carrito.map(item => ({
+          idProductos: parseInt(item.idProductos),
+          cantidad: item.cantidad,
+          precioUnitario: item.precio
+        }))
+      };
+
+      if (metodo === "paypal") {
+        // Guardar datos del pedido
+        localStorage.setItem("pedidoPendiente", JSON.stringify(pedidoRequest));
+
+        fetch("http://localhost:8080/api/paypal/crear-orden", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ total: total.toFixed(2) })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.approvalLink) {
+            window.location.href = data.approvalLink;
+          } else {
+            alert("No se pudo obtener el enlace de PayPal.");
+          }
+        })
+        .catch(err => {
+          console.error("Error al conectar con PayPal:", err);
+          alert("Error al procesar pago con PayPal.");
+        });
+      } else {
+        fetch("http://localhost:8080/api/pedidos/registrar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(pedidoRequest)
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Error al registrar el pedido");
+          return res.text();
+        })
+        .then(msg => {
+          alert("✅ " + msg);
+          localStorage.removeItem("carrito");
+          window.location.href = "../../Vista/Home/Tienda.html";
+        })
+        .catch(err => {
+          console.error(err);
+          alert("❌ No se pudo registrar el pedido.");
+        });
+      }
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panel Administrador | TruckMAC</title>
+
+    <!-- Estilos -->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <head>
+        ...
+        <!-- Estilos -->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+        <style>
+            :root {
+                --azul-mass: #0033a0;
+                --azul-hover: #002772;
+                --azul-suave: #e6f0ff;
+                --amarillo-mass: #ffd600;
+                --amarillo-oscuro: #e6c200;
+                --gris-suave: #f4f4f4;
+                --gris-claro: #e0e0e0;
+                --gris-texto: #333;
+                --negro-suave: #1a1a1a;
+                --fuente: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                background-color: var(--gris-suave);
+                font-family: var(--fuente);
+            }
+
+            h1.mt-4 {
+                color: var(--azul-mass);
+                font-weight: 700;
+            }
+
+            .breadcrumb {
+                background-color: transparent;
+            }
+
+            .breadcrumb-item.active {
+                color: var(--azul-hover);
+                font-weight: 500;
+            }
+
+            /* Tarjetas del dashboard */
+            .card {
+                border: none;
+                border-radius: 12px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card:hover {
+                transform: scale(1.03);
+                box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+            }
+
+            .card .card-body {
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            .card .card-footer {
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .card .card-footer a {
+                transition: all 0.3s ease;
+                font-weight: 500;
+            }
+
+            .card .card-footer a:hover {
+                color: var(--amarillo-mass);
+                text-decoration: underline;
+            }
+
+            /* Colores personalizados */
+            .bg-azul-mass {
+                background-color: var(--azul-mass) !important;
+                color: white !important;
+            }
+
+            .bg-amarillo {
+                background-color: var(--amarillo-mass) !important;
+                color: #000 !important;
+            }
+
+            .bg-azul-hover {
+                background-color: var(--azul-hover) !important;
+                color: white !important;
+            }
+
+            .bg-gris-intenso {
+                background-color: #4a4a4a !important;
+                color: white !important;
+            }
+
+            p span.text-danger {
+                color: var(--amarillo-mass) !important;
+                font-weight: bold;
+            }
+        </style>
+
+    </head>
+
+</head>
+
+<body>
+    <div id="navbar-top"></div>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav"></div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <!-- Aquí va el contenido dinámico -->
+                <section class="container-fluid px-4">
+                    <h1 class="mt-4">Bienvenido al Panel del Administrador</h1>
+                    <p>"Repuestos que rinden, <span class='text-danger'>clientes que vuelven</span>"</p>
+                    <!-- Resto del dashboard... -->
+                </section>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Dashboard</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active"><b>TruckMAC</b></li>
+                    </ol>
+                    <div class="row">
+                        <!-- Codigo de los Contenedores -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-info text-white mb-4">
+                                <div class="card-body">Administradores</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">Ver detalles</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body">Miembros</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">Ver detalles</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-warning text-white mb-4">
+                                <div class="card-body">Ventas</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">Ver detalles</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-secondary text-white mb-4">
+                                <div class="card-body">Otros</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">Ver Detalles</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <div data-include="includes/footer.html"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>
+    <script src="js/datatables-simple-demo.js"></script>
+
+    <script>
+        // Cargar navbar-top
+        fetch('includes/navbar-top.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('navbar-top').innerHTML = html;
+
+                // Esperar un poco para asegurar que el DOM del navbar se cargue
+                setTimeout(() => {
+                    const toggleBtn = document.getElementById('sidebarToggle');
+                    if (toggleBtn) {
+                        toggleBtn.addEventListener('click', () => {
+                            document.body.classList.toggle('sb-sidenav-toggled');
+                        });
+                    }
+                }, 100);
+            });
+
+        // Cargar sidebar
+        fetch('includes/sidebar.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('layoutSidenav_nav').innerHTML = html;
+            });
+    </script>
+
+</body>
+
+</html>

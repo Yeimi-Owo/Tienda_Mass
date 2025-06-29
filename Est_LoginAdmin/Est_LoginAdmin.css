@@ -1,0 +1,123 @@
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background: url("../assets/img/TiendaMassFondo.jpg") center/cover no-repeat;
+  filter: opacity(0.25) blur(1px);
+  z-index: -1;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 340px;
+  padding: 60px 52px 40px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #8e2de2 0%, #4a00e0 100%);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+}
+
+.avatar {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -118px auto 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.title {
+  margin-bottom: 46px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.input-box {
+  position: relative;
+  margin-bottom: 30px;
+}
+.input-box i {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 14px;
+}
+.input-box input {
+  width: 100%;
+  padding: 10px 10px 10px 28px;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+.input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  margin-bottom: 34px;
+  cursor: pointer;
+}
+.remember input {
+  accent-color: #fff;
+}
+
+.btn-login {
+  width: 140px;
+  padding: 10px 0;
+  border: none;
+  border-radius: 28px;
+  background: #fff;
+  color: #4a00e0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.btn-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.25);
+}
+.forgot {
+  display: block;
+  margin-top: 46px;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+.forgot:hover {
+  text-decoration: underline;
+}

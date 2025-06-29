@@ -9,7 +9,7 @@
 }
 
 body {
-  background-image: url(../img.menu/Mecanico.jpg);
+  background-image: url(../img.menu/IMG\ MASS\ 8.svg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -20,7 +20,7 @@ main {
   width: 100%;
   padding: 20px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 .contenedor__todo {
@@ -92,7 +92,7 @@ main {
 .contenedor__login-register form {
   width: 100%;
     padding: 60px 40px;
-    background: #a7abe5e3;
+    background: #f8c602f0;
     backdrop-filter: blur(5px);
     position: absolute;
     border-radius: 20px;

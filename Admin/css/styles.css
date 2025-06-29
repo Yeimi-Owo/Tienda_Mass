@@ -10863,6 +10863,7 @@ body {
 #layoutSidenav {
   display: flex;
   
+  
 }
 #layoutSidenav #layoutSidenav_nav {
   flex-basis: 225px;

@@ -2,13 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>TruckMAC</title>
+  <title> MASS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../Controlador/CSS/style2.css">
-  <link rel="shortcut icon" href="../../Controlador/IMAGENES/icono11.svg" type="image/x-icon">
+  <link rel="shortcut icon" href="../../Controlador/IMAGENES/LOGO MASS 4.svg" type="image/x-icon">
   <script src="https://kit.fontawesome.com/887a83504.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <style>
     .form-control.ok input {
       border: 0.1px solid;
@@ -39,29 +38,29 @@
         <div class="caja__tracera-login">
           <h3>¿Ya tienes una cuenta?</h3>
           <p>Inicia sesión para entrar a la página</p>
-          <button id="btn__iniciar-sesion">Iniciar sesión</button>
+          <button id="btn__iniciar-sesion">INICIAR SESIÓN</button>
         </div>
 
         <div class="caja__tracera-register">
           <h3>¿Aún no tienes una cuenta?</h3>
           <p>Regístrate para iniciar sesión</p>
-          <button id="btn__registrarse">Registrarse</button>
+          <button id="btn__registrarse">REGISTRARSE</button>
         </div>
       </div>
 
       <div class="contenedor__login-register">
 
-        <!-- LOGIN conectado a Spring Boot -->
+        <!-- LOGIN -->
         <form onsubmit="iniciarSesion(event)" class="formulario__login">
-          <h2>Iniciar sesión</h2>
+          <h2>INICIAR SESIÓN</h2>
           <input type="text" placeholder="Usuario" id="usuarioLogin" required>
           <input type="password" placeholder="Contraseña" id="contrasenaLogin" required>
           <button type="submit">Entrar</button>
         </form>
 
-        <!-- REGISTRO conectado a Spring Boot -->
+        <!-- REGISTRO -->
         <form onsubmit="registrarUsuario(event)" class="formulario__register" id="formulario">
-          <h2>Registrarse</h2>
+          <h2>REGISTRARSE</h2>
           <div class="form-control">
             <input type="text" placeholder="Nombre completo" id="nombreRegistro" required>
             <p></p>
@@ -85,7 +84,7 @@
     </div>
   </main>
 
-  <!-- ✅ JS para LOGIN -->
+  <!-- ✅ SCRIPT PARA LOGIN -->
   <script>
     function iniciarSesion(event) {
       event.preventDefault();
@@ -100,12 +99,18 @@
       })
       .then(response => response.json())
       .then(data => {
-        if (data && data.id_usuario) {
-          // 🟢 Esta línea es la clave para mostrar el nombre en index
-          localStorage.setItem("nombreUsuario", data.nombre_completo);
+        console.log("Respuesta del backend:", data);
+        alert("DEBUG: data.id_usuario = " + data.id_usuario);
 
-          alert(`Bienvenido/a, ${data.nombre_completo}`);
-          window.location.href = "../../Vista/Home/index.html"; // Ajusta si tu ruta es otra
+        // Detecta correctamente el ID del usuario sin importar el nombre del campo
+        const id = data.id_usuario;
+
+        if (id) {
+          localStorage.setItem("usuarioId", id);
+          localStorage.setItem("nombreUsuario", data.nombre_completo || "Usuario");
+
+          alert(`Bienvenido/a, ${data.nombre_completo || "Usuario"}`);
+          window.location.href = "../../Vista/Home/index.html";
         } else {
           alert('Usuario o contraseña incorrectos.');
         }
@@ -117,7 +122,7 @@
     }
   </script>
 
-  <!-- ✅ JS para REGISTRO -->
+  <!-- ✅ SCRIPT PARA REGISTRO -->
   <script>
     function registrarUsuario(event) {
       event.preventDefault();

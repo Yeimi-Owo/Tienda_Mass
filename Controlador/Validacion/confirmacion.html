@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmación de Pedido</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #1e1e1e;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    h2 {
+      color: #00e676;
+    }
+    button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mensajeConfirmacion">
+    <p>Cargando información...</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status');
+      const pedidoRaw = localStorage.getItem('pedidoPendiente');
+      const idUsuarioRaw = localStorage.getItem('usuarioId');
+      const usuarioid = parseInt(idUsuarioRaw);
+      const pedido = JSON.parse(pedidoRaw);
+
+      if (status === 'aprobado' && pedido && usuarioid) {
+        // Mostrar mensaje en pantalla
+        document.getElementById('mensajeConfirmacion').innerHTML = `
+          <h2>✅ Pedido confirmado</h2>
+          <p>Gracias por tu compra, <strong>${pedido.correo}</strong></p>
+          <p><strong>Método:</strong> ${pedido.metodoPago}</p>
+          <p><strong>Dirección:</strong> ${pedido.direccion}</p>
+          <p><strong>Total:</strong> $${pedido.total}</p>
+          <button onclick="window.location.href='../../Vista/Home/index.html'">Volver a la tienda</button>
+        `;
+
+        // Enviar pedido al backend
+        try {
+          const response = await fetch('http://localhost:8080/api/pedidos/registrar', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              idUsuario: usuarioid,
+              correo: pedido.correo,
+              direccion: pedido.direccion,
+              metodoPago: pedido.metodoPago,
+              total: pedido.total,
+              productos: pedido.productos
+            })
+          });
+
+          if (response.ok) {
+            console.log('✅ Pedido registrado correctamente.');
+            localStorage.removeItem('pedidoPendiente');
+          } else {
+            console.error('❌ Error al registrar el pedido.');
+          }
+        } catch (error) {
+          console.error('❌ Error en el envío:', error);
+        }
+
+      } else {
+        document.getElementById('mensajeConfirmacion').innerHTML = `
+          <h2>❌ Error</h2>
+          <p>No se pudo recuperar la información del pedido o el usuario.</p>
+          <button onclick="window.location.href='../../index.html'">Volver a la tienda</button>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

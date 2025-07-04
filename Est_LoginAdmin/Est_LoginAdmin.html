@@ -7,10 +7,9 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-1ycn6IcaQQ40/MKB4Imkb9tT3Lgxw85E+1i1V6Y5ljbjD0R9BVn1Ao0P5lrQ4a8XWLaG6fjSQ3BUnVJQyrx4hw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKB4Imkb9tT3Lgxw85E+1i1V6Y5ljbjD0R9BVn1Ao0P5lrQ4a8XWLaG6fjSQ3BUnVJQyrx4hw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="Est_LoginAdmin.css">
 </head>
 
@@ -25,15 +24,19 @@
 
     <h2 class="title">LOG&nbsp;IN</h2>
 
-    <form autocomplete="off">
+    <!-- Mostrar error si las credenciales son incorrectas -->
+    <p id="error" style="color:red;"></p>
+
+    <!-- Formulario de Login -->
+    <form id="loginForm" autocomplete="off">
       <div class="input-box">
         <i class="fa-solid fa-user"></i>
-        <input type="text" placeholder="Username" required />
+        <input type="email" id="email" placeholder="Email" required />
       </div>
 
       <div class="input-box">
         <i class="fa-solid fa-lock"></i>
-        <input type="password" placeholder="Password" required />
+        <input type="password" id="contrasena" placeholder="Password" required />
       </div>
 
       <label class="remember">
@@ -46,5 +49,46 @@
 
     <a href="#" class="forgot">¿Olvidaste la contraseña?</a>
   </section>
+
+  <script>
+  // JavaScript para enviar el formulario a la API de Spring Boot
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevenir envío tradicional del formulario
+
+    const email = document.getElementById('email').value;
+    const contrasena = document.getElementById('contrasena').value;
+
+    // Solicitud POST al backend de Spring Boot
+    fetch('http://localhost:8080/api/login/admin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email, contrasena: contrasena })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Usuario o contraseña incorrectos');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data) {
+        // ✅ Guarda el correo
+        localStorage.setItem("correoUsuario", data.email);
+
+        // ✅ Redirige al panel del admin
+        window.location.href = "/admin/list-administradores.html"; // o tu archivo panel real
+      } else {
+        document.getElementById('error').textContent = 'Usuario o contraseña incorrectos';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('error').textContent = error.message;
+    });
+  });
+</script>
+
 </body>
 </html>

@@ -61,14 +61,10 @@
         <!-- REGISTRO -->
         <form onsubmit="registrarUsuario(event)" class="formulario__register" id="formulario">
           <h2>REGISTRARSE</h2>
-          <div class="form-control">
-            <input type="text" placeholder="Nombre completo" id="nombreRegistro" required>
-            <p></p>
-          </div>
-          <div>
-            <input type="email" placeholder="Correo Electrónico" id="correoRegistro" required>
-            <p></p>
-          </div>
+          <div class="form-control"><input type="text" placeholder="Nombre completo" id="nombreRegistro" required pattern="[A-Za-záéíóúÁÉÍÓÚ\s]+" title="Solo se permiten letras y espacios"><p></p></div>
+
+          <div><input type="email" placeholder="Correo Electrónico" id="correoRegistro" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Debe ser un correo electrónico válido (ejemplo: usuario@dominio.com)"><p></p></div>
+
           <div>
             <input type="text" placeholder="Usuario" id="usuarioRegistro" required>
             <p></p>
@@ -161,6 +157,8 @@
       });
     }
   </script>
+
+  
 
   <!-- Scripts adicionales -->
   <script src="validation.js"></script>

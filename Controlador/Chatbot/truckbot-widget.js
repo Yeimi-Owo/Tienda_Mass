@@ -1,57 +1,37 @@
-/**
- * TruckBot Widget - Completamente Funcional
- * Versión: 2.0 - Garantizado que funciona
- */
-
 (function() {
     'use strict';
     
     // Verificar que no se cargue dos veces
-    if (window.TruckBotLoaded) return;
-    window.TruckBotLoaded = true;
+    if (window.MassBotLoaded) return;
+    window.MassBotLoaded = true;
     
-    console.log('🚛 Iniciando TruckBot...');
+    console.log('🛒 Iniciando MassBot...');
     
     // CONFIGURACIÓN
     const BOT_CONFIG = {
-        name: 'TruckBot',
-        company: 'Maquinaria Pesada Pro',
+        name: 'MassBot',
+        company: 'Tienda Mass',
         phone: '+51-123-456-789',
-        email: 'ventas@truckbot.pe',
+        email: 'ventas@tiendamass.pe',
         whatsapp: '51987654321'
     };
     
     // RESPUESTAS DEL BOT
     const BOT_RESPONSES = {
         // Saludos
-        'hola': '🚛 ¡Hola! Soy TruckBot. ¿Necesitas repuestos para maquinaria pesada?',
-        'buenos dias': '🌅 ¡Buenos días! ¿En qué puedo ayudarte con tu maquinaria?',
-        'buenas tardes': '🌇 ¡Buenas tardes! ¿Buscas algún repuesto específico?',
-        'buenas noches': '🌙 ¡Buenas noches! Estoy aquí para ayudarte 24/7',
+        'hola': '🛒 ¡Hola! Soy MassBot. ¿En qué puedo ayudarte con tus compras hoy?',
+        'buenos dias': '🌅 ¡Buenos días! ¿Qué producto te gustaría comprar hoy?',
+        'buenas tardes': '🌇 ¡Buenas tardes! ¿En qué puedo ayudarte con tu compra?',
+        'buenas noches': '🌙 ¡Buenas noches! Siempre estamos aquí para ayudarte en cualquier momento',
         
         // Productos
-        'arrancador': '🔋 ARRANCADORES DISPONIBLES:\n• Precio: $300 cada uno\n• Stock: 20 unidades\n• Garantía: 12 meses\n• Compatible con: CAT, Komatsu, Volvo',
-        'repuesto': '🔧 REPUESTOS DISPONIBLES:\n• Arrancadores: $300\n• Componentes hidráulicos\n• Sistemas eléctricos\n• Filtros y aceites\n¿Qué necesitas específicamente?',
-        'producto': '📦 NUESTROS PRODUCTOS:\n• Arrancadores universales\n• Repuestos CAT/Komatsu/Volvo\n• Componentes hidráulicos\n• Sistemas eléctricos\n• Filtros industriales',
+        'producto': '📦 NUESTROS PRODUCTOS:\n• Teléfonos móviles\n• Lentes de sol\n• Ropa de marca\n• Accesorios para vehículos\n• Calzado deportivo',
         'catalogo': '📖 CATÁLOGO: Envíame tu WhatsApp y te mando el catálogo completo con precios actualizados',
         
-        // Maquinaria
-        'excavadora': '🚜 EXCAVADORAS - Repuestos disponibles:\n• Arrancadores: $300\n• Componentes hidráulicos\n• Filtros de aceite/combustible\n• Sistemas eléctricos',
-        'bulldozer': '🚛 BULLDOZERS - Componentes:\n• Arrancadores de alta potencia\n• Sistemas hidráulicos\n• Componentes de transmisión',
-        'cargadora': '🏗️ CARGADORAS - Repuestos:\n• Arrancadores compatibles\n• Componentes frontales\n• Sistemas hidráulicos',
-        'tractor': '🚜 TRACTORES - Disponibles:\n• Arrancadores agrícolas\n• Componentes de motor\n• Sistemas eléctricos',
-        
-        // Marcas
-        'cat': '🐛 CATERPILLAR:\n• Arrancadores compatibles CAT\n• Componentes originales\n• Garantía 12 meses\n• Stock permanente',
-        'caterpillar': '🐛 CATERPILLAR REPUESTOS:\n• Arrancadores: $300\n• Filtros originales\n• Componentes hidráulicos\n• Sistemas eléctricos',
-        'komatsu': '⚙️ KOMATSU:\n• Repuestos compatibles\n• Arrancadores especializados\n• Componentes de calidad\n• Entrega inmediata',
-        'volvo': '🔵 VOLVO:\n• Arrancadores Volvo\n• Repuestos originales\n• Componentes certificados\n• Garantía extendida',
-        
         // Precios
-        'precio': '💰 PRECIOS ACTUALES:\n• Arrancador Universal: $300\n• Descuento 5% por 5+ unidades\n• Descuento 10% por 10+ unidades\n• Otros productos: Consultar',
-        'costo': '💵 COSTOS:\n• Arrancador: $300 c/u\n• Envío Lima: Gratis +$500\n• Envío provincias: $25\n• Instalación: $50 (opcional)',
-        'cuanto': '📊 ¿CUÁNTO CUESTA?\n• Arrancador: $300\n• Componentes: Desde $50\n• Kits completos: Desde $800\n¿Qué cantidad necesitas?',
-        'oferta': '🎯 OFERTAS ESPECIALES:\n• 5% OFF por 5+ unidades\n• 10% OFF por 10+ unidades\n• 15% OFF por 20+ unidades\n• Envío gratis +$500',
+        'precio': '💰 PRECIOS ACTUALES:\n• Teléfono móvil: $300\n• Lentes de sol: $50\n• Ropa de marca: Desde $30\n• Calzado deportivo: Desde $80\n¿Qué te interesa?',
+        'costo': '💵 COSTOS:\n• Teléfono móvil: $300 c/u\n• Envío Lima: Gratis +$500\n• Envío provincias: $25\n• Instalación: $50 (opcional)',
+        'oferta': '🎯 OFERTAS ESPECIALES:\n• 5% OFF por 5+ unidades\n• 10% OFF por 10+ unidades\n• Envío gratis en compras +$500',
         
         // Compras
         'comprar': '🛒 CÓMO COMPRAR:\n1. Dime qué necesitas\n2. Te doy precio final\n3. Pago: Tarjeta/Yape/Transferencia\n4. Envío en 24-48h',
@@ -65,13 +45,12 @@
         'email': `📧 EMAIL: ${BOT_CONFIG.email}\nRespuesta en menos de 2 horas`,
         
         // Información
-        'horario': '🕒 HORARIOS DE ATENCIÓN:\n• Lunes a Viernes: 8:00 AM - 6:00 PM\n• Sábados: 8:00 AM - 1:00 PM\n• TruckBot: 24/7 siempre disponible',
-        'ubicacion': '📍 UBICACIÓN:\n• Av. Industrial 123, Lima\n• Zona de repuestos automotrices\n• Estacionamiento disponible\n• Fácil acceso',
-        'garantia': '🛡️ GARANTÍA TOTAL:\n• 12 meses en todos los productos\n• Cambio inmediato por defectos\n• Soporte técnico incluido\n• Respaldo completo',
+        'horario': '🕒 HORARIOS DE ATENCIÓN:\n• Lunes a Viernes: 8:00 AM - 6:00 PM\n• Sábados: 8:00 AM - 1:00 PM\n• MassBot: 24/7 siempre disponible',
+        'ubicacion': '📍 UBICACIÓN:\n• Av. Principal 123, Lima\n• Zona comercial de tiendas\n• Estacionamiento disponible\n• Fácil acceso',
         
         // Ayuda
-        'ayuda': '❓ PUEDO AYUDARTE CON:\n• Precios de productos\n• Stock disponible\n• Compatibilidad de repuestos\n• Métodos de pago\n• Envíos y entregas\n• Garantías',
-        'menu': '📋 OPCIONES DISPONIBLES:\n• "arrancador" - Ver arrancadores\n• "precio" - Lista de precios\n• "envio" - Info de envíos\n• "contacto" - Datos de contacto\n• "garantia" - Info de garantías'
+        'ayuda': '❓ PUEDO AYUDARTE CON:\n• Precios de productos\n• Stock disponible\n• Métodos de pago\n• Envíos y entregas\n• Ofertas especiales',
+        'menu': '📋 OPCIONES DISPONIBLES:\n• "producto" - Ver productos disponibles\n• "precio" - Lista de precios\n• "envio" - Info de envíos\n• "contacto" - Datos de contacto'
     };
     
     // CREAR ESTILOS CSS
@@ -109,21 +88,6 @@
         
         .truckbot-button:active {
             transform: scale(0.95);
-        }
-        
-        .truckbot-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .truckbot-button:hover::before {
-            left: 100%;
         }
         
         .truckbot-chat {
@@ -399,7 +363,7 @@
         <div class="truckbot-chat" id="truckbot-chat">
             <div class="truckbot-header">
                 <div class="truckbot-header-info">
-                    <h3>🚛 ${BOT_CONFIG.name}</h3>
+                    <h3>🛒 ${BOT_CONFIG.name}</h3>
                     <p>${BOT_CONFIG.company}</p>
                 </div>
                 <button class="truckbot-close" id="truckbot-close">✕</button>
@@ -408,10 +372,9 @@
             <div class="truckbot-messages" id="truckbot-messages">
                 <div class="truckbot-message bot">
                     <div class="truckbot-message-content">
-                        🚛 ¡Hola! Soy ${BOT_CONFIG.name}, tu asistente especializado en maquinaria pesada.
+                        🛒 ¡Hola! Soy ${BOT_CONFIG.name}, tu asistente de compras en Tienda Mass.
                         
-  ¿Necesitas repuestos, información de precios o tienes alguna consulta?
-  
+  ¿Qué producto te gustaría comprar hoy? 
   Escribe "ayuda" para ver todo lo que puedo hacer por ti.
                     </div>
                 </div>
@@ -443,7 +406,7 @@
         </div>
         
         <button class="truckbot-button" id="truckbot-button">
-            🚛
+            🛒
         </button>
     `;
     
@@ -456,7 +419,7 @@
     function initWidget() {
         document.body.appendChild(widgetContainer);
         setupEventListeners();
-        console.log('✅ TruckBot widget cargado exitosamente');
+        console.log('✅ MassBot widget cargado exitosamente');
     }
     
     // Configurar event listeners
@@ -568,30 +531,12 @@
             }
         }
         
-        // Respuestas especiales
-        if (message.includes('gracias')) {
-            return '😊 ¡De nada! ¿Hay algo más en lo que pueda ayudarte con tu maquinaria?';
-        }
-        
-        if (message.includes('adios') || message.includes('chao') || message.includes('hasta luego')) {
-            return '👋 ¡Hasta luego! Recuerda que estoy disponible 24/7 para cualquier consulta sobre maquinaria pesada. ¡Que tengas un excelente día!';
-        }
-        
-        if (message.includes('si') || message.includes('ok') || message.includes('vale')) {
-            return '👍 ¡Perfecto! ¿En qué más puedo ayudarte? Puedes preguntarme sobre precios, stock, envíos o cualquier duda sobre nuestros productos.';
-        }
-        
-        // Respuesta por defecto
-        return `🤔 No tengo información específica sobre "${message}".
-  
-  Puedo ayudarte con:
-  • Información de productos (escribe "arrancador")
-  • Precios y ofertas (escribe "precio")
-  • Métodos de pago (escribe "pago")
-  • Envíos (escribe "envio")
-  • Contacto directo (escribe "contacto")
-  
-  ¿Sobre qué te gustaría saber?`;
+        return `🤔 No tengo información sobre "${message}".\n  
+  Puedo ayudarte con:\n  
+  • Productos disponibles\n  
+  • Precios y ofertas\n  
+  • Métodos de pago y envío\n  
+  • Contáctanos para más información.`;
     }
     
     // Inicializar cuando el DOM esté listo
@@ -602,7 +547,7 @@
     }
     
     // API pública
-    window.TruckBot = {
+    window.MassBot = {
         open: function() {
             if (!chatOpen) toggleChat();
         },
@@ -616,5 +561,4 @@
             }
         }
     };
-    
-  })();
+})();

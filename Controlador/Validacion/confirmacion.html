@@ -4,72 +4,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Confirmación de Pedido</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
   <style>
     body {
-      background-color: #111;
+      background-color: #fde9e9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1c1c1c;
       color: white;
-      font-family: Arial, sans-serif;
+      padding: 15px 30px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
     }
-    .container {
-      background-color: #1e1e1e;
-      padding: 2rem;
-      border-radius: 10px;
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: red;
+    }
+
+    .usuario {
+      font-size: 0.9rem;
+    }
+
+    .container-confirmacion {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
       text-align: center;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
-    h2 {
-      color: #00e676;
+
+    .container-confirmacion h2 {
+      color: #28a745;
+      font-weight: bold;
+      margin-bottom: 20px;
     }
-    button {
-      background-color: #f44336;
+
+    .btn-volver {
+      background-color: #dc3545;
       color: white;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
+      margin-top: 20px;
     }
-    button:hover {
-      background-color: #d32f2f;
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .container-confirmacion {
+        margin: 30px 10px;
+        padding: 25px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container" id="mensajeConfirmacion">
+  <header>
+    <div class="logo">🛒 <span>TIENDA</span> MASS</div>
+    <div class="usuario">Usuario: <span id="nombre-usuario">Desconocido</span></div>
+  </header>
+
+  <div class="container-confirmacion" id="mensajeConfirmacion">
     <p>Cargando información...</p>
   </div>
 
+  <footer>
+    © 2025 Tienda MASS. Todos los derechos reservados.
+  </footer>
+
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Mostrar nombre del usuario
+      const nombreUsuario = localStorage.getItem("nombreUsuario") || "Desconocido";
+      document.getElementById("nombre-usuario").textContent = nombreUsuario;
+
+      // Obtener detalles del pedido
       const params = new URLSearchParams(window.location.search);
-      const status = params.get('status');
-      const pedidoRaw = localStorage.getItem('pedidoPendiente');
-      const idUsuarioRaw = localStorage.getItem('usuarioId');
+      const status = params.get("status");
+      const pedidoRaw = localStorage.getItem("pedidoPendiente");
+      const idUsuarioRaw = localStorage.getItem("usuarioId");
       const usuarioid = parseInt(idUsuarioRaw);
       const pedido = JSON.parse(pedidoRaw);
 
-      if (status === 'aprobado' && pedido && usuarioid) {
-        // Mostrar mensaje en pantalla
-        document.getElementById('mensajeConfirmacion').innerHTML = `
-          <h2>✅ Pedido confirmado</h2>
+      const mensajeDiv = document.getElementById("mensajeConfirmacion");
+
+      if (status === "aprobado" && pedido && usuarioid) {
+        mensajeDiv.innerHTML = `
+          <h2>✅ Pedido Confirmado</h2>
           <p>Gracias por tu compra, <strong>${pedido.correo}</strong></p>
-          <p><strong>Método:</strong> ${pedido.metodoPago}</p>
+          <p><strong>Método de pago:</strong> ${pedido.metodoPago}</p>
           <p><strong>Dirección:</strong> ${pedido.direccion}</p>
-          <p><strong>Total:</strong> $${pedido.total}</p>
-          <button onclick="window.location.href='../../Vista/Home/index.html'">Volver a la tienda</button>
+          <p><strong>Total:</strong> S/ ${pedido.total.toFixed(2)}</p>
+          <button class="btn btn-volver" onclick="window.location.href='../../Vista/Home/index.html'">Volver a la tienda</button>
         `;
 
-        // Enviar pedido al backend
+        // Enviar datos al backend
         try {
-          const response = await fetch('http://localhost:8080/api/pedidos/registrar', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+          const response = await fetch("http://localhost:8080/api/pedidos/registrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               idUsuario: usuarioid,
               correo: pedido.correo,
@@ -81,20 +128,20 @@
           });
 
           if (response.ok) {
-            console.log('✅ Pedido registrado correctamente.');
-            localStorage.removeItem('pedidoPendiente');
+            console.log("✅ Pedido registrado correctamente.");
+            localStorage.removeItem("pedidoPendiente");
           } else {
-            console.error('❌ Error al registrar el pedido.');
+            console.error("❌ Error al registrar el pedido.");
           }
         } catch (error) {
-          console.error('❌ Error en el envío:', error);
+          console.error("❌ Error en el envío:", error);
         }
 
       } else {
-        document.getElementById('mensajeConfirmacion').innerHTML = `
-          <h2>❌ Error</h2>
-          <p>No se pudo recuperar la información del pedido o el usuario.</p>
-          <button onclick="window.location.href='../../index.html'">Volver a la tienda</button>
+        mensajeDiv.innerHTML = `
+          <h2 class="text-danger">❌ Error</h2>
+          <p>No se pudo recuperar la información del pedido o del usuario.</p>
+          <button class="btn btn-secondary" onclick="window.location.href='../../Vista/Home/index.html'">Volver a la tienda</button>
         `;
       }
     });

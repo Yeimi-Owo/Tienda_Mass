@@ -3,93 +3,232 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finalizar Compra - SILHOUETTE GYM</title>
+  <title>Finalizar Compra - Tienda MASS</title>
+
+  <!-- Íconos y fuentes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../Controlador/CSS/tienda.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style>
-    body {
-      background: #1a1a1a;
-      color: #fff;
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
     .checkout-container {
-      max-width: 700px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #2b2b2b;
-      border-radius: 10px;
+      max-width: 750px;
+      margin: 3rem auto;
+      padding: 2.5rem;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      animation: fadeInUp 0.6s ease-in-out;
     }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #btn-volver {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #ffcc00;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 999;
+  transition: background 0.3s, transform 0.2s;
+}
+#btn-volver:hover {
+  background: #e1ac00;
+  transform: scale(1.05);
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-contenido {
+  background: #fff;
+  color: #000;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  text-align: center;
+}
+.modal-botones button {
+  margin: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#cancelar-volver {
+  background: #ccc;
+}
+#confirmar-volver {
+  background: #f44336;
+  color: white;
+}
+
+
     h1, h2, h3 {
-      color: #f44336;
+      color: #a50e0e;
+      margin-bottom: 1rem;
     }
+
     .producto {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid #444;
-      padding: 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+      padding: 0.6rem 0;
     }
-    input, select {
+
+    input {
       width: 100%;
-      padding: 0.7rem;
+      padding: 0.75rem;
       margin-bottom: 1rem;
-      border: none;
-      border-radius: 5px;
-      background: #f0f4ff;
-      color: black;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
     }
+
     .metodos-pago {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 1rem;
       margin-bottom: 1rem;
     }
+
     .metodo {
-      background: #1a1a1a;
-      border: 1px solid #f44336;
-      border-radius: 8px;
+      background: #fafafa;
+      border: 2px solid #e6b800;
+      border-radius: 12px;
       text-align: center;
-      padding: 1rem;
+      padding: 1.2rem;
       cursor: pointer;
       transition: 0.3s;
     }
-    .metodo:hover {
-      background: #f44336;
-      color: white;
+
+    .metodo i {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
     }
-    .metodo.selected {
-      background: #f44336;
-      color: white;
+
+    .metodo:hover, .metodo.selected {
+      background: #ffcc00;
+      color: #000;
     }
+
     .detalle-metodo {
       display: none;
-      background: #121212;
+      background: #f9f9f9;
       padding: 1rem;
       margin-bottom: 1rem;
-      border-left: 4px solid #f44336;
+      border-left: 4px solid #ffcc00;
+      border-radius: 8px;
     }
+
     .detalle-metodo.active {
       display: block;
     }
+
+    .contenedor-header {
+  background-color: #2e2e2e;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
+  resize: vertical;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: border-color 0.3s ease;
+}
+
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ffd600;
+  box-shadow: 0 0 0 3px rgba(255, 214, 0, 0.3);
+}
+
+
+main {
+  padding-top: 120px; /* Altura del header + margen */
+}
+
     #total {
       text-align: right;
-      font-size: 1.3rem;
-      color: #f44336;
-      margin-top: 1rem;
+      font-size: 1.4rem;
+      color: #a50e0e;
+      margin-bottom: 1rem;
     }
+
     button {
       width: 100%;
-      padding: 0.9rem;
-      background: #f44336;
-      color: white;
-      border: none;
+      padding: 1rem;
+      background: #a50e0e;
+      color: #fff;
       font-weight: bold;
-      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #8c0b0b;
+      transform: scale(1.02);
     }
   </style>
 </head>
-<body>
+<body style="background-color: #f8e7e7; font-family: 'Montserrat', sans-serif;">
+
+  <!-- HEADER COMPARTIDO -->
+  <div class="contenedor-header">
+    <header>
+      <h1>TIENDA <span class="txtRojo"> MASS</span></h1>
+      <ul class="imagen1"><img src="../../Controlador/img.menu/LOGO MASS 1.png" /></ul>
+      <nav id="nav">
+        <a href="../../Vista/Home/index.html">Inicio</a>
+        <a href="../../Vista/Home/nosotros.html">Conóceme</a>
+        <a href="../../Vista/Home/planes.html">Ofertas</a>
+        <a href="../../Vista/Home/tienda.html">Tienda</a>
+      </nav>
+      <div class="redes">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+      <a class="usuario"><span id="nombre-usuario"></span></a>
+    </header>
+  </div>
+
+  <!-- CHECKOUT -->
   <div class="checkout-container">
     <h1><i class="fas fa-shopping-cart"></i> Finalizar Compra</h1>
 
@@ -99,7 +238,24 @@
     <h3>Datos del Cliente</h3>
     <input type="text" placeholder="Nombre completo" id="nombre" required />
     <input type="email" placeholder="Correo electrónico" id="correo" required />
-    <input type="text" placeholder="Dirección de envío" id="direccion" required />
+    <input type="text" id="direccion" placeholder="Dirección" required />
+    <!-- Campo de Referencia -->
+<input type="text" id="referencia" placeholder="Referencia (ej. casa verde, portón gris)" />
+<br>
+<!-- Horario de entrega -->
+<select id="horario_entrega">
+  <option value="">Selecciona un horario de entrega</option>
+  <option value="mañana">8:00 am - 12:00 pm</option>
+  <option value="tarde">12:00 pm - 4:00 pm</option>
+  <option value="noche">4:00 pm - 8:00 pm</option>
+</select>
+<br><br>
+<!-- Número de contacto -->
+<input type="tel" id="telefono_contacto" placeholder="Número de contacto" required />
+
+<!-- Instrucciones especiales -->
+<textarea id="instrucciones" placeholder="Instrucciones especiales para el delivery (opcional)" rows="2"></textarea>
+
 
     <h3>Método de Pago</h3>
     <div class="metodos-pago">
@@ -111,18 +267,24 @@
     </div>
 
     <div id="detalles-metodo"></div>
-
     <div id="total">Total: S/ 0.00</div>
     <button onclick="confirmarCompra()">Confirmar Compra</button>
   </div>
 
+  <!-- JS de nombre de usuario -->
+  <script>
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+    document.getElementById("nombre-usuario").textContent = nombreUsuario ? "Usuario: " + nombreUsuario : "Usuario: Invitado";
+  </script>
+
+  <!-- JS de compra -->
   <script>
     const productos = JSON.parse(localStorage.getItem("carrito")) || [];
     const resumen = document.getElementById("resumen-productos");
     const totalTexto = document.getElementById("total");
     const detallesMetodo = document.getElementById("detalles-metodo");
-
     let total = 0;
+
     productos.forEach(p => {
       const div = document.createElement("div");
       div.classList.add("producto");
@@ -131,6 +293,7 @@
       resumen.appendChild(div);
       total += subtotal;
     });
+
     totalTexto.textContent = `Total: S/ ${total.toFixed(2)}`;
 
     document.querySelectorAll(".metodo").forEach(m => {
@@ -144,63 +307,91 @@
     function mostrarDetallesMetodo(metodo) {
       const textos = {
         efectivo: "Pagarás al recibir tu producto.",
-        yape: "Realiza el pago a Yape/Plin al número 999888777 (TruckMAC SAC).",
-        deposito: "Haz un depósito a la cuenta BCP 123-456789-0-12 a nombre de TruckMAC SAC.",
+        yape: "Realiza el pago a Yape/Plin al número 999888777 (Tienda MASS).",
+        deposito: "Haz un depósito a la cuenta BCP 123-456789-0-12 a nombre de Tienda MASS.",
         paypal: "Serás redirigido a PayPal para completar tu compra.",
         tarjeta: "Puedes pagar con Visa, Mastercard, etc."
       };
       detallesMetodo.innerHTML = `<div class='detalle-metodo active'>${textos[metodo]}</div>`;
     }
 
-    function confirmarCompra() {
 
-      console.log("ID del usuario autenticado:", localStorage.getItem("usuarioId")); // 👈 Esto imprime el ID actual
-      const nombre = document.getElementById("nombre").value;
-      const correo = document.getElementById("correo").value;
-      const direccion = document.getElementById("direccion").value;
-      const metodo = document.querySelector(".metodo.selected")?.dataset.metodo || "";
-      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+function confirmarCompra() {
+  const nombre = document.getElementById("nombre");
+  const correo = document.getElementById("correo");
+  const direccion = document.getElementById("direccion");
+  const metodo = document.querySelector(".metodo.selected")?.dataset.metodo || "";
+  const usuarioId = localStorage.getItem("usuarioId");
 
-      if (!nombre || !correo || !direccion || !metodo || carrito.length === 0) {
-        alert("Completa todos los campos y selecciona al menos un producto.");
-        return;
-      }
+  if (!nombre.value.trim() || !correo.value.trim() || !direccion.value.trim() || !metodo || productos.length === 0) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Campos incompletos',
+      text: 'Completa todos los campos y elige un método de pago.'
+    });
+    return;
+  }
 
-      const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+  const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,}$/;
+  if (!regexNombre.test(nombre.value.trim())) {
+    nombre.style.borderColor = "#f44336";
+    nombre.focus();
+    Swal.fire("Nombre inválido", "Solo se permiten letras y espacios, y debe tener al menos 3 caracteres.", "warning");
+    return;
+  }
 
-      const pedidoRequest = {
-        idUsuario: parseInt(localStorage.getItem("usuarioId")),
-        direccion: direccion,
-        metodoPago: metodo,
-        correo: correo,
-        total: total,
-        productos: carrito.map(item => ({
-          idProductos: parseInt(item.idProductos),
-          cantidad: item.cantidad,
-          precioUnitario: item.precio
-        }))
-      };
+  if (!usuarioId) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Inicia sesión o regístrate',
+      text: 'Para completar tu compra, por favor inicia sesión o regístrate.',
+      confirmButtonText: 'Ok'
+    }).then(() => {
+      window.location.href = "../../Vista/User/Registro-Login.html";
+    });
+    return;
+  }
 
+  const pedidoRequest = {
+    idUsuario: parseInt(usuarioId),
+    direccion: direccion.value,
+    metodoPago: metodo,
+    correo: correo.value,
+    total,
+    referencia: document.getElementById("referencia").value,
+    horarioEntrega: document.getElementById("horario_entrega").value,
+    telefonoContacto: document.getElementById("telefono_contacto").value,
+    instrucciones: document.getElementById("instrucciones").value,
+    productos: productos.map(item => ({
+      idProductos: parseInt(item.idProductos),
+      cantidad: item.cantidad,
+      precioUnitario: item.precio
+    }))
+  };
+
+  // 👉 Confirmación flotante
+  Swal.fire({
+    title: '¿Confirmar Compra?',
+    text: '¿Estás seguro de que todos los datos ingresados son correctos?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#a50e0e',
+    cancelButtonColor: '#888',
+    confirmButtonText: 'Sí, confirmar',
+    cancelButtonText: 'Revisar datos'
+  }).then((result) => {
+    if (result.isConfirmed) {
       if (metodo === "paypal") {
-        // Guardar datos del pedido
         localStorage.setItem("pedidoPendiente", JSON.stringify(pedidoRequest));
-
-        fetch("http://localhost:8080/api/paypal/crear-orden", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ total: total.toFixed(2) })
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.approvalLink) {
-            window.location.href = data.approvalLink;
-          } else {
-            alert("No se pudo obtener el enlace de PayPal.");
-          }
-        })
-        .catch(err => {
-          console.error("Error al conectar con PayPal:", err);
-          alert("Error al procesar pago con PayPal.");
+        Swal.fire({ title: 'Redirigiendo a PayPal...', timer: 1500, showConfirmButton: false }).then(() => {
+          fetch("http://localhost:8080/api/paypal/crear-orden", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ total: total.toFixed(2) })
+          })
+            .then(res => res.json())
+            .then(data => window.location.href = data.approvalLink)
+            .catch(() => Swal.fire('Error', 'No se pudo conectar con PayPal.', 'error'));
         });
       } else {
         fetch("http://localhost:8080/api/pedidos/registrar", {
@@ -208,22 +399,50 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(pedidoRequest)
         })
-        .then(res => {
-          if (!res.ok) throw new Error("Error al registrar el pedido");
-          return res.text();
-        })
-        .then(msg => {
-          alert("✅ " + msg);
-          localStorage.removeItem("carrito");
-          window.location.href = "../../Vista/Home/Tienda.html";
-        })
-        .catch(err => {
-          console.error(err);
-          alert("❌ No se pudo registrar el pedido.");
-        });
+          .then(res => res.ok ? res.json() : Promise.reject())
+          .then(idPedido => {
+            Swal.fire({ title: 'Procesando...', timer: 1800, timerProgressBar: true, allowOutsideClick: false, didOpen: () => Swal.showLoading() })
+              .then(() => {
+                localStorage.removeItem("carrito");
+                window.location.href = `../../Controlador/Validacion/compra_exitosa.html?id=${idPedido}`;
+              });
+          })
+          .catch(() => Swal.fire('Error', 'No se pudo registrar el pedido.', 'error'));
       }
     }
+  });
+}
+
   </script>
+
+  <button id="btn-volver" title="Volver a la tienda">
+  <i class="fas fa-arrow-left"></i>
+</button>
+
+<div id="modal-volver" class="modal">
+  <div class="modal-contenido">
+    <h3>¿Estás seguro?</h3>
+    <p>¿Deseas volver a la tienda sin completar tu compra?</p>
+    <div class="modal-botones">
+      <button id="cancelar-volver">Cancelar</button>
+      <button id="confirmar-volver">Sí, volver</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("btn-volver").addEventListener("click", () => {
+    document.getElementById("modal-volver").style.display = "flex";
+  });
+
+  document.getElementById("cancelar-volver").addEventListener("click", () => {
+    document.getElementById("modal-volver").style.display = "none";
+  });
+
+  document.getElementById("confirmar-volver").addEventListener("click", () => {
+    window.location.href = "../../Vista/Home/Tienda.html";
+  });
+</script>
+
 </body>
 </html>
-

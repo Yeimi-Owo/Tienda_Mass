@@ -84,17 +84,18 @@
 
         .btn-primary:hover {
             background-color: #001e3d;
+            color: white;
         }
 
         .btn-success {
-            background-color:var(--amarillo-mass);
+            background-color: var(--amarillo-mass);
             color: black;
             border: none;
             font-weight: 500;
         }
 
         .btn-success:hover {
-            background-color:var(--amarillo-hover);
+            background-color: var(--amarillo-hover);
             color: black;
         }
 
@@ -127,7 +128,6 @@
             }
         }
     </style>
-
 </head>
 
 <body>
@@ -164,7 +164,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tabla-pedidos">
-                                            <!-- Filas dinámicas aquí -->
+                                            <!-- Filas dinámicas desde JavaScript -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -238,58 +238,59 @@
                 document.getElementById('layoutSidenav_nav').innerHTML = html;
             });
 
-        // Simular datos desde base de datos
-        const pedidos = [
-            {
-                idCompra: "101",
-                id_usuario: "001",
-                nombre_completo: "Carlos Pérez",
-                fecha: "2025-06-25",
-                direccion: "Av. Siempre Viva 123",
-                metodo_pago: "Tarjeta",
-                correo: "carlos@example.com",
-                estado: "Pendiente",
-                total: 150.00
-            },
-            {
-                idCompra: "102",
-                id_usuario: "002",
-                nombre_completo: "Laura Martínez",
-                fecha: "2025-06-26",
-                direccion: "Calle Falsa 456",
-                metodo_pago: "Yape",
-                correo: "laura@example.com",
-                estado: "Completado",
-                total: 220.00
-            }
-        ];
-
-        // Renderizar tabla
+        // Cargar pedidos desde API
         document.addEventListener("DOMContentLoaded", () => {
-            const tabla = document.getElementById("tabla-pedidos");
-            if (pedidos.length > 0) {
-                pedidos.forEach(p => {
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `
-                        <td>${p.nombre_completo}</td>
-                        <td>${p.fecha}</td>
-                        <td>${p.direccion}</td>
-                        <td>${p.metodo_pago}</td>
-                        <td>${p.correo}</td>
-                        <td>${p.estado}</td>
-                        <td>S/${p.total.toFixed(2)}</td>
-                        <td>
-                            <a href="list-detalle-pedido.html?id=${p.idCompra}" class="btn btn-primary">Ver Detalles</a>
-                            <a href="editar-pedido.html?editid=${p.idCompra}" class="btn btn-success">Editar</a>
-                        </td>
-                    `;
-                    tabla.appendChild(tr);
+            fetch("http://localhost:8080/api/pedidos/listar")
+                .then(res => res.json())
+                .then(pedidos => {
+                    const tabla = document.getElementById("tabla-pedidos");
+                    if (pedidos.length > 0) {
+                        pedidos.forEach(p => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                                <td>${p.nombreCompleto}</td>
+                                <td>${p.fecha}</td>
+                                <td>${p.direccion}</td>
+                                <td>${p.metodoPago}</td>
+                                <td>${p.correo}</td>
+                                <td>${p.estado}</td>
+                                <td>S/${p.total.toFixed(2)}</td>
+                                <td>
+                                    <a href="list-detalle-pedido.html?id=${p.idCompra}" class="btn btn-primary">Ver Detalles</a>
+                                    <a href="editar-pedido.html?editid=${p.idCompra}" class="btn btn-success">Editar</a>
+                                </td>
+                            `;
+                            tabla.appendChild(tr);
+                        });
+                    } else {
+                        tabla.innerHTML = `<tr><td colspan="8">No se encontraron pedidos</td></tr>`;
+                    }
+                })
+                .catch(err => {
+                    console.error("Error al cargar pedidos:", err);
+                    document.getElementById("tabla-pedidos").innerHTML = "<tr><td colspan='8'>Error al cargar los pedidos</td></tr>";
                 });
-            } else {
-                tabla.innerHTML = `<tr><td colspan="8">No se encontraron ventas</td></tr>`;
-            }
         });
     </script>
+
+
+<script>
+  // Mostrar correo
+  window.addEventListener('DOMContentLoaded', () => {
+    const correo = localStorage.getItem("correoUsuario");
+    const correoSpan = document.getElementById("correoUsuarioNavbar");
+    if (correoSpan) {
+      correoSpan.textContent = correo ? correo : "Invitado";
+    }
+  });
+
+  // ¡Esta es la función que te faltaba!
+  function cerrarSesion(event) {
+    event.preventDefault();
+    localStorage.clear();
+    window.location.href = "/Est_LoginAdmin/Est_LoginAdmin.html"; // ajusta si fuera diferente
+  }
+</script>
 </body>
 
 </html>

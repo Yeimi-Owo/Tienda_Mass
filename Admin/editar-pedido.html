@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Pedido | TruckMAC</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    :root {
+      --azul: #002855;
+      --amarillo: #FFD700;
+    }
+
+    h1 {
+      color: var(--azul);
+      font-weight: bold;
+    }
+
+    .btn-volver {
+      background-color: crimson;
+      color: white;
+      font-weight: bold;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .table th {
+      background-color: var(--azul);
+      color: white;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: var(--azul);
+      color: white;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #001d3d;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Editar Pedido</h1>
+    <nav>
+      <a href="list-pedidos.html" class="btn-volver">Volver</a>
+    </nav>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ID Usuario</strong></td>
+          <td><input type="text" id="idUsuario" readonly /></td>
+        </tr>
+        <tr>
+          <td><strong>Dirección</strong></td>
+          <td><input type="text" id="direccion" readonly /></td>
+        </tr>
+        <tr>
+          <td><strong>Método de Pago</strong></td>
+          <td><input type="text" id="metodoPago" readonly /></td>
+        </tr>
+        <tr>
+          <td><strong>Correo</strong></td>
+          <td><input type="text" id="correo" readonly /></td>
+        </tr>
+        <tr>
+          <td><strong>Estado</strong></td>
+          <td>
+            <select id="estado" required>
+              <option value="pendiente">Pendiente</option>
+              <option value="en preparación">En Preparación</option>
+              <option value="enviado">Enviado</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button id="btnActualizar">Actualizar Pedido</button>
+  </div>
+
+  <script>
+    // Obtener el parámetro ID de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const idPedido = urlParams.get('editid');
+
+    if (idPedido) {
+      fetch(`http://localhost:8080/api/pedidos/${idPedido}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('idUsuario').value = data.idUsuario;
+          document.getElementById('direccion').value = data.direccion;
+          document.getElementById('metodoPago').value = data.metodoPago;
+          document.getElementById('correo').value = data.correo;
+          document.getElementById('estado').value = data.estado;
+        })
+        .catch(err => alert("Error al obtener el pedido: " + err));
+    }
+
+    document.getElementById('btnActualizar').addEventListener('click', function () {
+      const estadoActualizado = {
+        estado: document.getElementById('estado').value
+      };
+
+      fetch(`http://localhost:8080/api/pedidos/${idPedido}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(estadoActualizado)
+      })
+        .then(response => {
+          if (response.ok) {
+            alert("Pedido actualizado correctamente");
+            window.location.href = "list-pedidos.html";
+          } else {
+            alert("Error al actualizar pedido");
+          }
+        });
+    });
+  </script>
+</body>
+
+</html>

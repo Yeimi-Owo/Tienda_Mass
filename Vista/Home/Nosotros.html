@@ -291,7 +291,9 @@
     const nombreSpan = document.getElementById("nombre-usuario");
 
     if (nombreUsuario && nombreSpan) {
-        nombreSpan.textContent = "Usuario: " + nombreUsuario;
+      nombreSpan.textContent = "Usuario: " + nombreUsuario;
+    } else {
+      nombreSpan.textContent = "Usuario: Invitado";
     }
 
     // Lógica para cerrar sesión

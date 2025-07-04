@@ -368,6 +368,23 @@
 
   </script>
 
+<script>
+  // Mostrar correo
+  window.addEventListener('DOMContentLoaded', () => {
+    const correo = localStorage.getItem("correoUsuario");
+    const correoSpan = document.getElementById("correoUsuarioNavbar");
+    if (correoSpan) {
+      correoSpan.textContent = correo ? correo : "Invitado";
+    }
+  });
+
+  // ¡Esta es la función que te faltaba!
+  function cerrarSesion(event) {
+    event.preventDefault();
+    localStorage.clear();
+    window.location.href = "/Est_LoginAdmin/Est_LoginAdmin.html"; // ajusta si fuera diferente
+  }
+</script>
 </body>
 
 </html>

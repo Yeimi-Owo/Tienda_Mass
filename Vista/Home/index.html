@@ -15,6 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="../../Controlador/JS/script.js"></script>
   <script src="../../Controlador/Chatbot/truckbot-widget.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -60,12 +61,13 @@
   <section id="inicio" class="inicio">
     <video class="video" src="../../Controlador/img.menu/VIDEO MASS 1.mp4" autoplay muted loop></video>
     <div class="contenido-video">
-    <h2>Precios bajos, <span class="txtRojo">¡cerca de ti!</span></h2>
-                <p>"En Tiendas Mass estamos cada vez más cerca de ti, con precios bajos, productos esenciales y la calidez de siempre, porque ahorrar debe ser fácil y cercano."</p> 
+      <h2>Precios bajos, <span class="txtRojo">¡cerca de ti!</span></h2>
+      <p>"En Tiendas Mass estamos cada vez más cerca de ti, con precios bajos, productos esenciales y la calidez de siempre, porque ahorrar debe ser fácil y cercano."</p> 
     </div>
   </section>
 
-  <!-- NOSOTROS -->
+  <!-- (Sección NOSOTROS, PLANES, TIENDA, FOTOS, CONTACTO idéntica a como la enviaste, no necesita cambio) -->
+   <!-- NOSOTROS -->
   <section id="nosotros" class="nosotros">
     <div class="fila">
       <div class="col">
@@ -236,6 +238,7 @@
     </div>
   </section>
 
+
   <!-- Mostrar nombre de usuario y cerrar sesión -->
   <script>
     const nombreUsuario = localStorage.getItem("nombreUsuario");
@@ -244,15 +247,36 @@
     if (nombreUsuario && nombreSpan) {
       nombreSpan.textContent = "Usuario: " + nombreUsuario;
     } else {
-    nombreSpan.textContent = "Usuario: Invitado";
+      nombreSpan.textContent = "Usuario: Invitado";
     }
 
     const cerrarSesion = document.getElementById("sesionLin");
     cerrarSesion.addEventListener("click", function (e) {
       e.preventDefault();
-      localStorage.removeItem("nombreUsuario");
-      alert("Sesión cerrada correctamente");
-      window.location.href = "../../Vista/User/Registro-Login.html";
+
+      Swal.fire({
+        title: '¿Deseas cerrar sesión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem("nombreUsuario");
+          Swal.fire({
+            title: '¡Sesión cerrada!',
+            text: 'Has salido correctamente.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          setTimeout(() => {
+            window.location.href = "../../Vista/User/Registro-Login.html";
+          }, 1600);
+        }
+      });
     });
   </script>
 </body>

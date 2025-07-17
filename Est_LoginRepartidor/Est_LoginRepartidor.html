@@ -6,16 +6,13 @@
   <title>Repartidor – Tienda Mass</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
- <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
-
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="Est_LoginRepartidor.css">
 </head>
 
 <body>
   <main class="split-wrapper">
-
     <section class="hero-img"></section>
 
     <section class="form-area">
@@ -26,15 +23,15 @@
         <h1>Inicia sesión para repartir</h1>
         <p class="subtitle">Panel de repartidores&nbsp;–&nbsp;Tienda Mass</p>
 
-        <form>
+        <form id="formRepartidor">
           <div class="input-group">
             <i class="fa-solid fa-envelope"></i>
-            <input type="email" placeholder="Correo electrónico" required>
+            <input type="email" id="correo" placeholder="Correo electrónico" required>
           </div>
 
           <div class="input-group">
             <i class="fa-solid fa-lock"></i>
-            <input type="password" placeholder="Contraseña" required>
+            <input type="password" id="contrasena" placeholder="Contraseña" required>
           </div>
 
           <div class="form-extra">
@@ -58,5 +55,61 @@
       </div>
     </section>
   </main>
+
+  <!-- SCRIPT LOGIN -->
+  <script>
+    document.getElementById("formRepartidor").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const correo = document.getElementById("correo").value;
+      const contrasena = document.getElementById("contrasena").value;
+
+      try {
+        const response = await fetch(`http://localhost:8080/api/repartidores/login?correo=${correo}&contrasena=${contrasena}`, {
+          method: "POST"
+        });
+
+        const result = await response.text();
+
+        if (result === "success") {
+          mostrarBienvenida(correo);
+        } else {
+          alert("Correo o contraseña incorrectos.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Hubo un problema al iniciar sesión.");
+      }
+    });
+
+    function mostrarBienvenida(nombre) {
+      const bienvenida = document.createElement("div");
+      bienvenida.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background-color: #28a745;
+          color: white;
+          padding: 16px 24px;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+          font-family: 'Poppins', sans-serif;
+          z-index: 9999;
+        ">
+          ¡Bienvenido, <strong>${nombre}</strong>! 👋<br>
+          Ya puedes ver los pedidos pendientes.
+        </div>
+      `;
+
+      document.body.appendChild(bienvenida);
+
+      setTimeout(() => {
+        bienvenida.remove();
+        // Puedes redirigir a otra página si quieres
+        window.location.href = "../../Vista/Home/Pedidos.html";
+      }, 4000);
+    }
+  </script>
 </body>
 </html>

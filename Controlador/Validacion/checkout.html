@@ -239,6 +239,8 @@ main {
     <input type="text" placeholder="Nombre completo" id="nombre" required />
     <input type="email" placeholder="Correo electrónico" id="correo" required />
     <input type="text" id="direccion" placeholder="Dirección" required />
+    <button type="button" onclick="autocompletarDireccion()">📍 Usar mi ubicación</button>
+    <br><br>
     <!-- Campo de Referencia -->
 <input type="text" id="referencia" placeholder="Referencia (ej. casa verde, portón gris)" />
 <br>
@@ -249,6 +251,10 @@ main {
   <option value="tarde">12:00 pm - 4:00 pm</option>
   <option value="noche">4:00 pm - 8:00 pm</option>
 </select>
+
+<!-- Fecha deseada de entrega -->
+<label for="fecha_entrega_deseada"><strong>Fecha deseada de entrega</strong></label>
+<input type="date" id="fecha_entrega_deseada" required />
 <br><br>
 <!-- Número de contacto -->
 <input type="tel" id="telefono_contacto" placeholder="Número de contacto" required />
@@ -352,6 +358,31 @@ function confirmarCompra() {
     return;
   }
 
+  const fechaDeseadaInput = document.getElementById("fecha_entrega_deseada");
+  const fechaDeseada = fechaDeseadaInput.value;
+
+  const hoy = new Date();
+  const maxFecha = new Date();
+  maxFecha.setDate(hoy.getDate() + 3);
+
+  const fechaSeleccionada = new Date(fechaDeseada);
+
+  // Validación
+  const soloFechaHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+const soloFechaSeleccionada = new Date(fechaSeleccionada.getFullYear(), fechaSeleccionada.getMonth(), fechaSeleccionada.getDate());
+
+if (!fechaDeseada || soloFechaSeleccionada <= soloFechaHoy || soloFechaSeleccionada > maxFecha) {
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'Fecha inválida',
+      text: 'Selecciona una fecha de entrega entre hoy y los próximos 3 días.'
+    });
+    fechaDeseadaInput.style.borderColor = "#f44336";
+    return;
+  }
+
+
   const pedidoRequest = {
     idUsuario: parseInt(usuarioId),
     direccion: direccion.value,
@@ -362,6 +393,7 @@ function confirmarCompra() {
     horarioEntrega: document.getElementById("horario_entrega").value,
     telefonoContacto: document.getElementById("telefono_contacto").value,
     instrucciones: document.getElementById("instrucciones").value,
+    fechaEntregaDeseada: fechaDeseada,
     productos: productos.map(item => ({
       idProductos: parseInt(item.idProductos),
       cantidad: item.cantidad,
@@ -370,47 +402,65 @@ function confirmarCompra() {
   };
 
   // 👉 Confirmación flotante
-  Swal.fire({
-    title: '¿Confirmar Compra?',
-    text: '¿Estás seguro de que todos los datos ingresados son correctos?',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#a50e0e',
-    cancelButtonColor: '#888',
-    confirmButtonText: 'Sí, confirmar',
-    cancelButtonText: 'Revisar datos'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      if (metodo === "paypal") {
-        localStorage.setItem("pedidoPendiente", JSON.stringify(pedidoRequest));
-        Swal.fire({ title: 'Redirigiendo a PayPal...', timer: 1500, showConfirmButton: false }).then(() => {
-          fetch("http://localhost:8080/api/paypal/crear-orden", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ total: total.toFixed(2) })
-          })
-            .then(res => res.json())
-            .then(data => window.location.href = data.approvalLink)
-            .catch(() => Swal.fire('Error', 'No se pudo conectar con PayPal.', 'error'));
-        });
-      } else {
-        fetch("http://localhost:8080/api/pedidos/registrar", {
+Swal.fire({
+  title: '¿Confirmar Compra?',
+  text: '¿Estás seguro de que todos los datos ingresados son correctos?',
+  icon: 'question',
+  showCancelButton: true,
+  confirmButtonColor: '#a50e0e',
+  cancelButtonColor: '#888',
+  confirmButtonText: 'Sí, confirmar',
+  cancelButtonText: 'Revisar datos'
+}).then((result) => {
+  if (result.isConfirmed) {
+    if (metodo === "paypal") {
+      localStorage.setItem("pedidoPendiente", JSON.stringify(pedidoRequest));
+      Swal.fire({ title: 'Redirigiendo a PayPal...', timer: 1500, showConfirmButton: false }).then(() => {
+        fetch("http://localhost:8080/api/paypal/crear-orden", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(pedidoRequest)
+          body: JSON.stringify({ total: total.toFixed(2) })
         })
-          .then(res => res.ok ? res.json() : Promise.reject())
-          .then(idPedido => {
-            Swal.fire({ title: 'Procesando...', timer: 1800, timerProgressBar: true, allowOutsideClick: false, didOpen: () => Swal.showLoading() })
-              .then(() => {
-                localStorage.removeItem("carrito");
-                window.location.href = `../../Controlador/Validacion/compra_exitosa.html?id=${idPedido}`;
-              });
-          })
-          .catch(() => Swal.fire('Error', 'No se pudo registrar el pedido.', 'error'));
-      }
+          .then(res => res.json())
+          .then(data => window.location.href = data.approvalLink)
+          .catch(() => Swal.fire('Error', 'No se pudo conectar con PayPal.', 'error'));
+      });
+    } else {
+      fetch("http://localhost:8080/api/pedidos/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pedidoRequest)
+      })
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(idPedido => {
+
+          // 🛑 Límite de pedidos alcanzado
+          if (idPedido === -1) {
+            Swal.fire({
+              icon: "warning",
+              title: "Límite de pedidos alcanzado",
+              text: "Solo puedes realizar 3 pedidos por día. Intenta nuevamente mañana.",
+              confirmButtonColor: "#d33"
+            });
+            return;
+          }
+
+          Swal.fire({
+            title: 'Procesando...',
+            timer: 1800,
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+          }).then(() => {
+            localStorage.removeItem("carrito");
+            window.location.href = `../../Controlador/Validacion/compra_exitosa.html?id=${idPedido}`;
+          });
+        })
+        .catch(() => Swal.fire('Error', 'No se pudo registrar el pedido.', 'error'));
     }
-  });
+  }
+});
+
 }
 
   </script>
@@ -443,6 +493,58 @@ function confirmarCompra() {
     window.location.href = "../../Vista/Home/Tienda.html";
   });
 </script>
+
+<script>
+  const fechaInput = document.getElementById("fecha_entrega_deseada");
+
+  const hoy = new Date();
+  const mañana = new Date(hoy);
+  mañana.setDate(hoy.getDate() + 1); // mañana
+  const maximo = new Date(hoy);
+  maximo.setDate(hoy.getDate() + 3); // pasado mañana + 1 = máximo permitido
+
+  const formatoFecha = (fecha) => {
+    const yyyy = fecha.getFullYear();
+    const mm = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dd = String(fecha.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  fechaInput.min = formatoFecha(mañana);
+  fechaInput.max = formatoFecha(maximo);
+</script>
+<script>
+function autocompletarDireccion() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    alert("Tu navegador no soporta geolocalización.");
+  }
+
+  function success(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    // Usamos la API gratuita de Nominatim (OpenStreetMap)
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const direccion = data.display_name;
+        document.querySelector("input[placeholder='Dirección']").value = direccion;
+      })
+      .catch(() => {
+        alert("No se pudo obtener la dirección.");
+      });
+  }
+
+  function error(err) {
+    alert("No se pudo obtener tu ubicación: " + err.message);
+  }
+}
+</script>
+
 
 </body>
 </html>

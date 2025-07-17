@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pedidos – Repartidor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #fffdf3; /* Fondo suave amarillo */
+    color: #333;
+  }
+
+ header {
+  background-color: #ffcc00;
+  color: #000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+  header h1 {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  .content {
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .column {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .column h2 {
+    text-align: center;
+    color: #f7b500; /* Amarillo fuerte */
+  }
+
+  .pedido {
+    background-color: white;
+    padding: 1.2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    border-left: 6px solid #f7b500; /* Amarillo lateral */
+    position: relative;
+  }
+
+  .pedido h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #f7b500;
+  }
+
+  .pedido p {
+    margin: 0.2rem 0;
+  }
+
+  .status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+
+  .status.pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  .status.enviado {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  .btn-detalles {
+    background-color: #f7b500;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn-detalles:hover {
+    background-color: #d49c00;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 80px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .modal-content {
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .cerrar {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: #f7b500;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn-entregar {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    font-weight: 600;
+  }
+
+  .btn-entregar:hover {
+    background-color: #1e874c;
+  }
+
+  input[type="file"] {
+    margin-top: 10px;
+  }
+
+  .no-pedidos {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #888;
+    margin-top: 2rem;
+  }
+
+ .filtros {
+  position: sticky;
+  top: 70px; /* para que quede debajo del header */
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background-color: #fff6d0;
+  padding: 1rem;
+  border-bottom: 2px solid #f7b500;
+  font-size: 0.95rem;
+}
+
+
+  .filtros label {
+    color: #b8860b; /* Dorado oscuro */
+    font-weight: 600;
+  }
+
+  .filtros select,
+  .filtros input[type="date"] {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Reloj y fecha en encabezado */
+  .fecha-hora {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000;
+  }
+
+  .resumen-pedidos {
+  font-size: 1rem;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: inline-block;
+}
+.dark-mode .resumen-pedidos {
+  background-color: #3a3a3a;
+  color: #ffd966;
+}
+
+
+  .fecha-hora i {
+    font-size: 1.2rem;
+  }
+
+   body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+  }
+  .dark-mode .pedido {
+    background-color: #2b2b2b;
+    border-left-color: #f7b500;
+    color: white;
+  }
+  .dark-mode header,
+  .dark-mode .filtros {
+    background-color: #333;
+    color: white;
+  }
+  .dark-mode .btn-detalles {
+    background-color: #444;
+    color: white;
+  }
+
+  @keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fecha-hora, .resumen-pedidos {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .content {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .pedido {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-detalles {
+    padding: 8px;
+  }
+}
+
+
+</style>
+
+</head>
+<body>
+<header>
+  <h1 style="margin: 0;">Pedidos</h1>
+  <div id="resumenPedidos" class="resumen-pedidos mt-2 mb-3 text-center fw-bold">
+  <!-- Aquí se mostrará el resumen dinámico -->
+</div>
+
+  <div id="fechaHoraGrande" style="font-size: 1.4rem; font-weight: bold;"></div>
+
+  <div style="display: flex; align-items: center; gap: 15px;">
+    <div id="notiBell" style="position: relative; cursor: pointer;">
+      <i class="fas fa-bell" style="font-size: 1.5rem; color: #000;" onclick="mostrarModalNoti(urgentesGuardados)"></i>
+
+      <span id="notiCount" style="
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: red;
+        color: white;
+        font-size: 0.7rem;
+        padding: 2px 5px;
+        border-radius: 50%;
+        display: none;">0</span>
+    </div>
+    <span><i class="fa-solid fa-motorcycle"></i> Repartidor Mass</span>
+  </div>
+</header>
+<div id="modoOscuroToggle" onclick="toggleModoOscuro()" style="
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  background: #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  z-index: 9999;
+">🌙 Modo Oscuro</div>
+
+<div class="filtros">
+  <div>
+    <label for="filtroHorario"><strong>Filtrar por horario:</strong></label><br />
+    <select id="filtroHorario" onchange="cargarPedidos()">
+      <option value="">Todos los horarios</option>
+      <option value="mañana">8:00 am - 12:00 pm</option>
+      <option value="tarde">12:00 pm - 4:00 pm</option>
+      <option value="noche">4:00 pm - 8:00 pm</option>
+    </select>
+  </div>
+  <div>
+    <label for="filtroFecha"><strong>Filtrar por fecha:</strong></label><br />
+    <input type="date" id="filtroFecha" onchange="cargarPedidos()" />
+  </div>
+  <div>
+  <label><strong>Exportar:</strong></label><br />
+  <button onclick="exportarPDF()" style="padding: 6px 12px; border: none; border-radius: 6px; background-color: #e91e63; color: white; cursor: pointer;">
+    📄 Exportar PDF
+  </button>
+</div>
+</div>
+<div class="content">
+  <div class="column">
+    <h2>Pendientes</h2>
+    <div id="contenedorPendientes"></div>
+    <div class="column">
+    </div>
+  </div>
+  <div class="column">
+    <h2>Entregados</h2>
+    <div id="contenedorEntregados"></div>
+  </div>
+</div>
+
+<!-- Modal para marcar como entregado -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    <h2>Detalles del Pedido</h2>
+    <p><strong>Referencia:</strong> <span id="modalReferencia"></span></p>
+    <p><strong>Horario de Entrega:</strong> <span id="modalHorario"></span></p>
+    <p><strong>Teléfono:</strong> <span id="modalTelefono"></span></p>
+    <p><strong>Instrucciones:</strong> <span id="modalInstrucciones"></span></p>
+    <input type="file" id="fotoEntrega" accept="image/*">
+    <button id="btnEntregar" class="btn-entregar">Marcar como entregado</button>
+  </div>
+</div>
+
+<!-- Modal para ver detalles completos de entregado -->
+<div id="modalVer" class="modal">
+  <div class="modal-content">
+    <span class="cerrar" onclick="cerrarVerModal()">&times;</span>
+    <h2>Detalles del Pedido Entregado</h2>
+    <p><strong>Nro Orden:</strong> <span id="ordenVer"></span></p>
+    <p><strong>Total:</strong> S/ <span id="totalVer"></span></p>
+    <p><strong>Productos:</strong>
+      <ul id="listaProductos"></ul>
+    </p>
+    <p><strong>Evidencia:</strong><br><img id="imgEvidencia" src="" width="100%" alt="evidencia" /> </p>
+  </div>
+</div>
+
+<script>
+let pedidoIdActual = null;
+
+let urgentesGuardados = [];
+
+async function cargarPedidos() {
+  const contenedorPendientes = document.getElementById("contenedorPendientes");
+  const contenedorEntregados = document.getElementById("contenedorEntregados");
+  const notiCount = document.getElementById("notiCount");
+
+  contenedorPendientes.innerHTML = "<p class='no-pedidos'>Cargando...</p>";
+  contenedorEntregados.innerHTML = "<p class='no-pedidos'>Cargando...</p>";
+
+  const res = await fetch("http://localhost:8080/api/pedidos/todos");
+  const pedidos = await res.json();
+
+  const filtroHorario = document.getElementById("filtroHorario").value;
+  const filtroFecha = document.getElementById("filtroFecha").value;
+
+  contenedorPendientes.innerHTML = "";
+  contenedorEntregados.innerHTML = "";
+
+  const pedidosFiltrados = pedidos.filter(pedido => {
+    const coincideHorario = !filtroHorario || pedido.horarioEntrega === filtroHorario;
+    const fechaPedido = pedido.fechaEntregaDeseada;
+    const coincideFecha = !filtroFecha || fechaPedido === filtroFecha;
+    return coincideHorario && coincideFecha;
+  });
+
+  // 👉 Contar resumen
+const totalPedidos = pedidos.length;
+const pendientes = pedidos.filter(p => p.estado === 'pendiente').length;
+const entregados = pedidos.filter(p => p.estado === 'enviado').length;
+
+document.getElementById("resumenPedidos").innerHTML = `
+  Hoy tienes: <strong>${totalPedidos}</strong> pedidos –
+  Pendientes: <strong>${pendientes}</strong> |
+  Entregados: <strong>${entregados}</strong>
+`;
+
+
+  // Limpiamos la lista urgente
+  urgentesGuardados = [];
+
+  if (pedidosFiltrados.length === 0) {
+    const mensaje = "<p class='no-pedidos'>No hay pedidos para los filtros seleccionados.</p>";
+    contenedorPendientes.innerHTML = filtroHorario || filtroFecha ? mensaje : "<p class='no-pedidos'>No hay pedidos registrados actualmente.</p>";
+    contenedorEntregados.innerHTML = contenedorPendientes.innerHTML;
+    notiCount.style.display = "none";
+    return;
+  }
+
+  let cantidadAlertas = 0;
+  let alertaMostrada = false;
+
+  pedidosFiltrados.forEach(pedido => {
+    const div = document.createElement("div");
+    div.className = "pedido";
+    div.id = `pedido-${pedido.idCompra}`;
+    div.dataset.idCompra = pedido.idCompra;
+    div.dataset.referencia = pedido.referencia;
+    div.dataset.horario = pedido.horarioEntrega;
+    div.dataset.telefono = pedido.telefonoContacto;
+    div.dataset.instrucciones = pedido.instrucciones;
+    div.dataset.estado = pedido.estado;
+
+    div.innerHTML = `
+  <h2>Pedido de ${pedido.nombreCompleto}</h2>
+  <p><strong>Dirección:</strong> ${pedido.direccion}</p>
+  <p><strong>Fecha de Entrega:</strong> ${formatearFechaBonita(pedido.fechaEntregaDeseada)}</p>
+  <p><strong>Método de Pago:</strong> ${pedido.metodoPago}</p>
+  <p><strong>Productos:</strong><br><ul>${(pedido.productos || []).map(p => `<li>${p}</li>`).join("")}</ul></p>
+  <span class="status ${pedido.estado}">${pedido.estado}</span><br>
+  ${pedido.telefonoContacto ? `
+    <a href="https://wa.me/51${pedido.telefonoContacto.replace(/\D/g, '')}" target="_blank" style="color:green;text-decoration:none;font-size:0.9rem;">💬 WhatsApp</a><br>
+  ` : "<em>Sin contacto</em><br>"}
+  <button class="btn-detalles" onclick="${pedido.estado === 'pendiente' ? 'verDetalles' : 'verDetallesEntregado'}(this)">
+    ${pedido.estado === 'pendiente' ? 'Más detalles' : 'Ver más'}
+  </button>
+`;
+
+
+    if (pedido.estado === "pendiente" && pedido.fechaEntregaDeseada) {
+      const ahora = new Date();
+      const fechaEntrega = new Date(`${pedido.fechaEntregaDeseada}T08:00:00`);
+      const diferenciaHoras = (fechaEntrega - ahora) / (1000 * 60 * 60);
+
+      if (diferenciaHoras > 0 && diferenciaHoras <= 66) {
+        cantidadAlertas++;
+        urgentesGuardados.push(pedido);
+
+        const alerta = document.createElement("div");
+        alerta.textContent = "⚠️ ¡Este pedido vence en menos de 12 horas!";
+        alerta.style.color = "#b94a00";
+        alerta.style.background = "#fff3cd";
+        alerta.style.padding = "8px";
+        alerta.style.borderRadius = "6px";
+        alerta.style.marginTop = "10px";
+        alerta.style.fontWeight = "bold";
+        alerta.style.animation = "parpadeo 1s infinite";
+        div.appendChild(alerta);
+
+        if (!alertaMostrada) {
+          Swal.fire({
+            icon: 'warning',
+            title: '¡Atención!',
+            text: 'Hay pedidos pendientes que vencen en menos de 12 horas.',
+            confirmButtonColor: '#e91e63'
+          });
+          alertaMostrada = true;
+        }
+      }
+    }
+
+    if (pedido.estado === "pendiente") {
+      contenedorPendientes.appendChild(div);
+    } else {
+      contenedorEntregados.appendChild(div);
+    }
+  });
+
+  // 🔔 Mostrar número en campanita
+  if (notiCount) {
+    if (urgentesGuardados.length > 0) {
+      notiCount.textContent = urgentesGuardados.length;
+      notiCount.style.display = "inline-block";
+    } else {
+      notiCount.style.display = "none";
+    }
+  }
+}
+
+
+
+function verDetalles(btn) {
+  const pedido = btn.closest(".pedido");
+  pedidoIdActual = pedido.dataset.idCompra;
+  document.getElementById("modalReferencia").textContent = pedido.dataset.referencia;
+  document.getElementById("modalHorario").textContent = pedido.dataset.horario;
+  document.getElementById("modalTelefono").textContent = pedido.dataset.telefono;
+  document.getElementById("modalInstrucciones").textContent = pedido.dataset.instrucciones;
+  document.getElementById("modal").style.display = "block";
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+function cerrarVerModal() {
+  document.getElementById("modalVer").style.display = "none";
+}
+
+async function verDetallesEntregado(btn) {
+  const id = btn.closest(".pedido").dataset.idCompra;
+
+  const res = await fetch(`http://localhost:8080/api/pedidos/detalles-entregado/${id}`);
+  const data = await res.json();
+
+  document.getElementById("ordenVer").textContent = data.numeroOrden;
+  document.getElementById("totalVer").textContent = data.total;
+
+  const img = document.getElementById("imgEvidencia");
+  img.src = `http://localhost:8080/api/pedidos/imagen-evidencia/${id}`;
+  img.style.display = "block";
+  img.onerror = () => {
+    img.style.display = "none";
+    img.alt = "No hay evidencia disponible.";
+    Swal.fire("⚠️ No se pudo cargar la imagen", "Este pedido no tiene evidencia subida", "info");
+  };
+
+  const lista = document.getElementById("listaProductos");
+  lista.innerHTML = "";
+  data.productos.forEach(p => {
+    lista.innerHTML += `<li>${p.nombre} - ${p.cantidad} x S/ ${p.precio}</li>`;
+  });
+
+  document.getElementById("modalVer").style.display = "block";
+}
+
+document.getElementById("btnEntregar").addEventListener("click", async () => {
+  const file = document.getElementById("fotoEntrega").files[0];
+  if (!file) {
+    return Swal.fire("Sube una imagen");
+  }
+  const formData = new FormData();
+  formData.append("imagen", file);
+  formData.append("estado", "enviado");
+
+  const res = await fetch(`http://localhost:8080/api/pedidos/entregar-con-evidencia/${pedidoIdActual}`, {
+    method: "PUT",
+    body: formData
+  });
+
+  if (res.ok) {
+    Swal.fire("Entregado").then(() => {
+      cerrarModal();
+      cargarPedidos();
+    });
+  }
+});
+
+function formatearFechaBonita(fechaISO) {
+  if (!fechaISO) return "Fecha no disponible"; // si viene null o vacío
+
+  // Usa split si es formato yyyy-mm-dd
+  const [año, mes, dia] = fechaISO.split("-");
+  const meses = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+  ];
+
+  return `${parseInt(dia)} de ${meses[parseInt(mes) - 1]} de ${año}`;
+}
+
+function exportarPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const pedidos = document.querySelectorAll('.pedido');
+
+  const secciones = {
+    mañana: [],
+    tarde: [],
+    noche: []
+  };
+
+  pedidos.forEach(pedido => {
+    const horario = pedido.dataset.horario || "Sin horario";
+    const correo = pedido.querySelector("h2").textContent;
+    const direccion = pedido.querySelector("p:nth-of-type(1)").textContent.replace("Dirección: ", "");
+    const fecha = pedido.querySelector("p:nth-of-type(2)").textContent.replace("Fecha de Entrega: ", "");
+    const pago = pedido.querySelector("p:nth-of-type(3)").textContent.replace("Método de Pago: ", "");
+    const estado = pedido.querySelector(".status").textContent;
+
+    const fila = [correo, direccion, fecha, pago, estado];
+
+    if (horario === "mañana") secciones.mañana.push(fila);
+    else if (horario === "tarde") secciones.tarde.push(fila);
+    else if (horario === "noche") secciones.noche.push(fila);
+  });
+
+  let y = 10;
+  let primera = true;
+
+  for (const turno of ["mañana", "tarde", "noche"]) {
+    const pedidosTurno = secciones[turno];
+    if (pedidosTurno.length > 0) {
+      if (!primera) doc.addPage();
+      doc.setFontSize(16);
+      doc.text(`Pedidos del turno: ${turno}`, 14, y);
+      doc.autoTable({
+        startY: y + 10,
+        head: [["Correo", "Dirección", "Fecha Entrega", "Método Pago", "Estado"]],
+        body: pedidosTurno
+      });
+      primera = false;
+    }
+  }
+
+  doc.save("Pedidos_Repartidor.pdf");
+}
+
+// Función para mostrar el modal con los pedidos urgentes
+function mostrarModalNoti(pedidosUrgentes) {
+  const lista = document.getElementById("listaNotificaciones");
+  lista.innerHTML = ""; // Limpiamos lista anterior
+
+  pedidosUrgentes.forEach(pedido => {
+    const li = document.createElement("li");
+    li.innerHTML = `📦 <strong>Pedido de ${pedido.nombreCompleto}</strong> – ${pedido.direccion}`;
+    li.style.cursor = "pointer";
+    li.onclick = () => {
+      document.getElementById("modalNotificaciones").style.display = "none";
+      resaltarPedido(pedido.idCompra); // 🔁 Ir al pedido
+    };
+    lista.appendChild(li);
+  });
+
+  document.getElementById("modalNotificaciones").style.display = "flex";
+}
+
+
+// Función para cerrar el modal
+function cerrarModalNoti() {
+  document.getElementById("modalNotificaciones").style.display = "none";
+}
+
+function resaltarPedido(idCompra) {
+  const pedido = document.getElementById(`pedido-${idCompra}`);
+  if (pedido) {
+    pedido.scrollIntoView({ behavior: "smooth", block: "center" });
+    pedido.style.boxShadow = "0 0 15px 4px #ff9800";
+    setTimeout(() => {
+      pedido.style.boxShadow = "";
+    }, 2000);
+  }
+}
+
+
+async function exportarPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const pedidosPendientes = Array.from(document.querySelectorAll('#contenedorPendientes .pedido'));
+
+  if (pedidosPendientes.length === 0) {
+    return Swal.fire("No hay pedidos pendientes para exportar", "", "info");
+  }
+
+  // Obtenemos el turno seleccionado
+  const turno = document.getElementById("filtroHorario").value;
+  const titulo = turno ? `Pedidos pendientes – Turno: ${turno}` : "Pedidos pendientes";
+
+  // Agregamos título
+  doc.setFontSize(16);
+  doc.text(titulo.charAt(0).toUpperCase() + titulo.slice(1), 14, 15);
+
+  const rows = pedidosPendientes.map(pedido => {
+  const productosLista = Array.from(pedido.querySelectorAll("ul li")).map(li => li.textContent).join(", ");
+  return [
+    pedido.dataset.referencia || "",
+    `Pedido de ${pedido.querySelector("h2").textContent.replace("Pedido de ", "")}`,
+    pedido.querySelector("p:nth-child(2)").textContent.replace("Dirección: ", ""),
+    pedido.querySelector("p:nth-child(3)").textContent.replace("Fecha de Entrega: ", ""),
+    pedido.querySelector("p:nth-child(4)").textContent.replace("Método de Pago: ", ""),
+    pedido.dataset.estado || "",
+    pedido.dataset.horario || "",
+    pedido.dataset.telefono || "",
+    pedido.dataset.instrucciones || "",
+    productosLista
+  ];
+});
+
+
+  doc.autoTable({
+  startY: 20,
+  head: [["Referencia", "Correo", "Dirección", "Fecha Entrega", "Método Pago", "Estado", "Horario", "Teléfono", "Instrucciones", "Productos"]],
+    body: rows,
+    styles: { fontSize: 8 },
+    headStyles: { fillColor: [233, 30, 99] }
+  });
+
+  doc.save("Pedidos_Pendientes.pdf");
+}
+
+
+
+
+window.onload = cargarPedidos;
+
+function actualizarFechaHoraGrande() {
+  const fechaHoraDiv = document.getElementById("fechaHoraGrande");
+  const ahora = new Date();
+
+  const opcionesFecha = { day: "numeric", month: "long", year: "numeric" };
+  const fecha = ahora.toLocaleDateString("es-PE", opcionesFecha);
+
+  const horas = ahora.getHours().toString().padStart(2, "0");
+  const minutos = ahora.getMinutes().toString().padStart(2, "0");
+
+  fechaHoraDiv.textContent = `🕒 ${horas}:${minutos} – 📆 ${fecha}`;
+}
+
+function toggleModoOscuro() {
+  document.body.classList.toggle("dark-mode");
+  const toggleBtn = document.getElementById("modoOscuroToggle");
+  toggleBtn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
+}
+
+setInterval(actualizarFechaHoraGrande, 1000); // actualiza cada segundo
+
+</script>
+
+
+<!-- MODAL DE NOTIFICACIONES -->
+<div id="modalNotificaciones" style="
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+">
+  <div style="
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+  ">
+    <h2>📣 Pedidos urgentes</h2>
+    <ul id="listaNotificaciones" style="padding-left: 20px;"></ul>
+    <button onclick="cerrarModalNoti()" style="
+      margin-top: 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    ">Cerrar</button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Historial de Pedidos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Estilos y librerías -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://kit.fontawesome.com/5a0dc1b3bf.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../../Controlador/CSS/estilo.css">
+  <link rel="shortcut icon" href="../../Controlador/IMAGENES/LOGO MASS 4.svg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f5f6fa;
+      font-family: 'Heebo', sans-serif;
+    }
+
+    .contenido-principal {
+      padding: 6rem 2rem 3rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2.titulo-historial {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .resumen {
+      background: #fff;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .card-pedido {
+      background-color: #fff;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card-pedido:hover {
+      transform: scale(1.01);
+    }
+
+    .card-pedido img {
+      max-width: 150px;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .card-pedido img:hover {
+      transform: scale(1.1);
+    }
+
+    .card-pedido ul {
+      padding-left: 1.2rem;
+    }
+
+    .card-pedido strong {
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .card-pedido img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="menu_arriba">
+    <header>
+      <h1 class="nom_gym">TIENDA <span class="txtRojo">MASS</span></h1>
+      <ul class="imagen1">
+        <img src="../../Controlador/img.menu/LOGO MASS 1.png">
+      </ul>
+      <nav id="nav">
+        <a href="index.html">Inicio</a>
+        <a href="#nosotros">Conóceme</a>
+        <a href="#Planes">OFERTAS</a>
+        <a href="#Tienda">Tienda</a>
+        <a href="#FOTOS">Fotos</a>
+        <a href="#contacto">Contacto</a>
+        <a href="historial.html">Historial</a>
+      </nav>
+      <div class="redes">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+      <a class="nav-link itemText" id="sesionLin" href="#"><i class="fas fa-sign-out-alt"></i></a>
+      <a class="usuario"><span id="nombre-usuario"></span></a>
+      <div class="nav-responsive" id="icono-nav" onclick="mostrarOcultarMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </header>
+  </div>
+
+  <!-- Contenido -->
+  <div class="contenido-principal">
+    <h2 class="titulo-historial">🧾 Historial de Pedidos</h2>
+    <div id="resumen" class="resumen"></div>
+    <div id="contenedorPedidos"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+    const nombreSpan = document.getElementById("nombre-usuario");
+    if (nombreUsuario && nombreSpan) {
+      nombreSpan.textContent = "Usuario: " + nombreUsuario;
+    }
+
+    const cerrarSesion = document.getElementById("sesionLin");
+    cerrarSesion.addEventListener("click", function (e) {
+      e.preventDefault();
+      Swal.fire({
+        title: '¿Deseas cerrar sesión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.clear();
+          Swal.fire('¡Sesión cerrada!', 'Has salido correctamente.', 'success');
+          setTimeout(() => {
+            window.location.href = "../../Vista/User/Registro-Login.html";
+          }, 1500);
+        }
+      });
+    });
+
+    const idUsuario = localStorage.getItem("usuarioId");
+
+    if (!idUsuario) {
+      Swal.fire("Error", "Debes iniciar sesión para ver tu historial", "error");
+    } else {
+      axios.get(`http://localhost:8080/api/pedidos/por-usuario/${idUsuario}`)
+        .then(response => {
+          const pedidos = response.data;
+          const contenedor = document.getElementById("contenedorPedidos");
+          const resumen = document.getElementById("resumen");
+
+          if (pedidos.length === 0) {
+            contenedor.innerHTML = "<p class='text-center'>No tienes pedidos aún.</p>";
+            return;
+          }
+
+          // --- RESUMEN ---
+          const totalPedidos = pedidos.length;
+          const ultimaFecha = pedidos[pedidos.length - 1].fecha.split(" ")[0];
+
+          const productosContados = {};
+          pedidos.forEach(pedido => {
+            pedido.productos.forEach(p => {
+              const nombre = p.split(" (")[0];
+              productosContados[nombre] = (productosContados[nombre] || 0) + 1;
+            });
+          });
+
+          const productosFrecuentes = Object.entries(productosContados)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3)
+            .map(p => `${p[0]} (${p[1]})`).join(", ");
+
+          resumen.innerHTML = `
+            <p><strong>Total de pedidos:</strong> ${totalPedidos}</p>
+            <p><strong>Último pedido:</strong> ${ultimaFecha}</p>
+            <p><strong>Productos más frecuentes:</strong> ${productosFrecuentes}</p>
+          `;
+
+          // --- MOSTRAR PEDIDOS ---
+          pedidos.forEach(pedido => {
+            const productosHTML = pedido.productos.map(p => `<li>${p}</li>`).join("");
+            const imagenHTML = pedido.evidenciaEntrega
+              ? `<img src="http://localhost:8080/api/pedidos/imagen-evidencia/${pedido.idCompra}" alt="Evidencia" onclick="mostrarImagen(this.src)">`
+              : "<em>Sin evidencia</em>";
+
+            contenedor.innerHTML += `
+              <div class="card-pedido" data-aos="fade-up">
+                <h5>Pedido #${pedido.idCompra}</h5>
+                <p><strong>Estado:</strong> ${pedido.estado}</p>
+                <p><strong>Fecha:</strong> ${pedido.fecha}</p>
+                <p><strong>Productos:</strong></p>
+                <ul>${productosHTML}</ul>
+                <p><strong>Evidencia:</strong><br> ${imagenHTML}</p>
+              </div>
+            `;
+          });
+        })
+        .catch(error => {
+          console.error(error);
+          Swal.fire("Error", "No se pudo obtener el historial", "error");
+        });
+    }
+
+    function mostrarImagen(src) {
+      Swal.fire({
+        imageUrl: src,
+        imageAlt: 'Evidencia de entrega',
+        showCloseButton: true,
+        showConfirmButton: false,
+        width: '80%',
+        background: '#fff',
+      });
+    }
+  </script>
+</body>
+</html>
